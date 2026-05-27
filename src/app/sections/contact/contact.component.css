@@ -1,0 +1,358 @@
+/* ======================================================
+   CONTACT – Premium 2-Column Section
+   ====================================================== */
+
+.contact-section {
+  padding: 6rem 5%;
+  background-color: #f8f9fa; /* Clean light background */
+  color: #212529;
+}
+
+.contact-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+/* ---------- Columna Izquierda (Info de Valor) ---------- */
+
+.contact-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.contact-title {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #1b4332; /* Primary */
+  margin: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.contact-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  border-radius: 3px;
+  background: #52b788; /* Accent */
+}
+
+.contact-description {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #495057;
+  margin: 0 0 1rem 0;
+}
+
+.quick-contact-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  background-color: #ffffff;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.wa-card .card-icon {
+  background-color: rgba(37, 211, 102, 0.1);
+  color: #25d366;
+}
+
+.wa-card:hover .card-icon {
+  background-color: #25d366;
+  color: #ffffff;
+}
+
+.email-card .card-icon {
+  background-color: rgba(64, 145, 108, 0.1);
+  color: #40916c;
+}
+
+.email-card:hover .card-icon {
+  background-color: #40916c;
+  color: #ffffff;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.card-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #6c757d;
+}
+
+.card-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1b4332;
+}
+
+/* ---------- Columna Derecha (Formulario) ---------- */
+
+.contact-form-col {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.angular-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.85rem 1.1rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  color: #212529;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #adb5bd;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  background-color: #ffffff;
+  border-color: #40916c; /* Secondary color focus */
+  box-shadow: 0 0 0 3px rgba(64, 145, 108, 0.15);
+}
+
+.form-group input.invalid.touched,
+.form-group textarea.invalid.touched {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* Custom Checkbox */
+.form-checkbox-group {
+  margin-top: 0.5rem;
+}
+
+.checkbox-container {
+  display: block;
+  position: relative;
+  padding-left: 2rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #495057;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #52b788; /* Accent */
+  border-color: #52b788;
+}
+
+.checkmark::after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark::after {
+  display: block;
+}
+
+.checkbox-container .checkmark::after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.privacy-link {
+  color: #40916c;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.privacy-link:hover {
+  text-decoration: underline;
+}
+
+/* Submit Button */
+.btn-submit {
+  padding: 0.9rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: #ffffff;
+  background-color: #52b788; /* Accent */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(82, 183, 136, 0.3);
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #40916c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(64, 145, 108, 0.4);
+}
+
+.btn-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 992px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .contact-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .contact-info-col {
+    text-align: center;
+    align-items: center;
+  }
+  
+  .quick-contact-cards {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+  
+  .contact-card {
+    flex: 1;
+    min-width: 250px;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-section {
+    padding: 4rem 5%;
+  }
+
+  .contact-form-col {
+    padding: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .quick-contact-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .contact-card {
+    width: 100%;
+    max-width: 100%;
+  }
+}

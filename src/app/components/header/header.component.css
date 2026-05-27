@@ -1,0 +1,180 @@
+/* ======================================================
+   HEADER – Sticky glassmorphism bar + hamburger (mobile)
+   ====================================================== */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 5%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+
+/* ---------- Logo ---------- */
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.04);
+}
+
+.logo-img {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #3a3a3a;
+  font-weight: 500;
+  font-size: 1rem;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav a:not(.btn-whatsapp):hover {
+  color: #2e7d32;
+}
+
+.nav a:not(.btn-whatsapp)::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background: #2e7d32;
+  border-radius: 2px;
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.nav a:not(.btn-whatsapp):hover::after {
+  width: 100%;
+}
+
+/* ---------- WhatsApp Button ---------- */
+
+.btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  background: #25d366;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-whatsapp:hover {
+  background: #1ebe5d;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.45);
+}
+
+.wa-icon {
+  flex-shrink: 0;
+}
+
+/* ---------- Hamburger ---------- */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  z-index: 1100;
+}
+
+.hamburger .bar {
+  display: block;
+  width: 26px;
+  height: 3px;
+  border-radius: 3px;
+  background: #2e7d32;
+  transition: transform 0.35s ease, opacity 0.25s ease;
+}
+
+/* Animate to "X" when open */
+.hamburger.active .bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hamburger.active .bar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active .bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 70%;
+    max-width: 320px;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2.4rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: -4px 0 30px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: 1050;
+  }
+
+  .nav.open {
+    transform: translateX(0);
+  }
+
+  .nav a {
+    font-size: 1.15rem;
+  }
+
+  .btn-whatsapp {
+    margin-top: 0.5rem;
+    justify-content: center;
+    width: 100%;
+  }
+}

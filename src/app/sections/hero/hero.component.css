@@ -1,0 +1,130 @@
+/* ======================================================
+   HERO – 2-Column Layout with 3D Canvas
+   ====================================================== */
+
+.hero-section {
+  min-height: 90vh;
+  padding-top: 120px;
+  padding-bottom: 4rem;
+  padding-left: 5%;
+  padding-right: 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* ---------- Text Column ---------- */
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #40916c;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: #1b4332;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.hero-description {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0;
+}
+
+.btn-cta {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  background-color: #52b788;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(82, 183, 136, 0.4);
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-cta:hover {
+  background-color: #40916c;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(82, 183, 136, 0.6);
+}
+
+/* ---------- 3D Canvas Column ---------- */
+
+.hero-3d-wrapper {
+  width: 100%;
+  height: 100%;
+  min-height: 450px;
+  display: flex;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 992px) {
+  .hero-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding-top: 140px;
+    gap: 3rem;
+  }
+
+  .hero-content {
+    align-items: center;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+
+  .hero-3d-wrapper {
+    min-height: 350px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-section {
+    padding-top: 120px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  .hero-3d-wrapper {
+    min-height: 280px;
+  }
+}

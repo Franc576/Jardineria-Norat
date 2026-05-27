@@ -1,0 +1,39 @@
+# yaml-language-server: $schema=https://openspec.dev/schema/config.json
+version: "1"
+
+project:
+  name: "jardineria-norat-v2"
+  domain: "Paisajismo, jardinería, mantenimiento de piscinas y servicios locales"
+  context: |
+    Estamos reconstruyendo la web de Jardinería Norat desde cero. 
+    El objetivo es crear una Landing Page One-Page premium, moderna, rápida y que en el futuro incluirá un entorno interactivo 3D.
+    Ubicación del negocio: Mallorca, España (público local y extranjero de alto poder adquisitivo).
+
+tech_stack:
+  framework: "Angular"
+  language: "TypeScript"
+  styles: "CSS puro"
+  conventions:
+    - "Todos los componentes deben ser Standalone (Angular 15+)."
+    - "No usar módulos tradicionales (NgModule)."
+    - "Arquitectura basada en componentes: src/app/components (globales) y src/app/sections (secciones de la landing)."
+    - "Uso estricto de tipado en TypeScript, evitando el uso de 'any'."
+
+design_system:
+  colors:
+    primary: "#1b4332"       # Verde bosque oscuro (transmite profesionalidad y naturaleza)
+    secondary: "#40916c"     # Verde hoja (para acentos y elementos secundarios)
+    accent: "#52b788"        # Verde brillante (para botones CTA principales)
+    background: "#f8f9fa"    # Gris claro/Blanco roto para fondos limpios
+    text: "#212529"          # Gris oscuro casi negro para máxima legibilidad
+  fonts:
+    body: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+
+rules:
+  artifact_generation:
+    - "Mantener el HTML semántico (usar <header>, <section>, <article>, <footer>)."
+    - "El CSS debe ser modular, responsivo (Mobile-First) y sin frameworks pesados como Tailwind a menos que se indique lo contrario."
+    - "Todos los textos orientados al usuario deben estar en Castellano de forma nativa por ahora (con vistas a internacionalización en el futuro)."
+  opsx_execution:
+    - "Antes de modificar un archivo existente, analizar su impacto en el layout general."
+    - "Dejar comentarios claros en TypeScript si se implementan lógicas complejas fuera de la zona de Angular (como se hará con Three.js)."
