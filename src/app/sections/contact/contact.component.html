@@ -40,7 +40,7 @@
 
       <!-- Columna Derecha: Formulario Angular -->
       <div class="contact-form-col">
-        <form (ngSubmit)="sendEmail($event)" #contactForm="ngForm" class="angular-contact-form">
+        <form (ngSubmit)="sendEmail($event, contactForm)" #contactForm="ngForm" class="angular-contact-form">
           <div class="form-row">
             <div class="form-group">
               <label for="form-name">Nombre</label>
@@ -118,18 +118,22 @@
           <button
             type="submit"
             class="btn-submit"
-            [disabled]="isSending || !formData.privacyAccepted || !formData.name || !formData.phone || !formData.email || !formData.message"
+            [disabled]="isSending || contactForm.invalid"
           >
             {{ isSending ? 'Enviando...' : 'Enviar Mensaje' }}
           </button>
 
           <!-- Feedback Messages -->
-          <div *ngIf="emailSentSuccess" class="form-feedback success">
-            ¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.
-          </div>
-          <div *ngIf="emailSentError" class="form-feedback error">
-            Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.
-          </div>
+          @if (emailSentSuccess) {
+            <div class="form-feedback success">
+              ¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.
+            </div>
+          }
+          @if (emailSentError) {
+            <div class="form-feedback error">
+              Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.
+            </div>
+          }
         </form>
       </div>
 

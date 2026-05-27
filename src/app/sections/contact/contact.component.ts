@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
 import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })
@@ -23,7 +22,7 @@ export class ContactComponent {
     privacyAccepted: false
   };
 
-  sendEmail(event: Event) {
+  sendEmail(event: Event, contactForm: NgForm) {
     event.preventDefault();
     console.log('Formulario: Iniciando envío con nuevo servicio Gmail...');
     this.isSending = true;
@@ -42,7 +41,20 @@ export class ContactComponent {
       console.log('EmailJS Éxito:', response.status, response.text);
       this.isSending = false;
       this.emailSentSuccess = true;
-      formElement.reset();
+      
+      // Reset form controls and validation state
+      contactForm.resetForm({
+        privacyAccepted: false
+      });
+      
+      // Reset the local component model
+      this.formData = {
+        name: '',
+        phone: '',
+        email: '',
+        message: '',
+        privacyAccepted: false
+      };
     })
     .catch((error) => {
       console.error('EmailJS Error Crítico:', error);
