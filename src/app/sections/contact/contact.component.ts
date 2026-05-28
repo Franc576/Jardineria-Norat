@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })

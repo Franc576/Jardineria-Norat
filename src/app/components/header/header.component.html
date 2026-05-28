@@ -1,5 +1,5 @@
 <header class="header" id="header">
-  <a href="#inicio" class="logo-link">
+  <a routerLink="/" fragment="inicio" class="logo-link" (click)="closeMenu()">
     <img
       src="NORAT-LOGO.webp"
       alt="Jardinería Norat – Logotipo"
@@ -22,10 +22,10 @@
 
   <!-- Navigation -->
   <nav class="nav" [class.open]="menuOpen">
-    <a href="#inicio"   (click)="closeMenu()">Inicio</a>
-    <a href="#nosotros" (click)="closeMenu()">Nosotros</a>
-    <a href="#servicios"(click)="closeMenu()">Servicios</a>
-    <a href="#contacto" (click)="closeMenu()">Contacto</a>
+    <a routerLink="/" fragment="inicio" (click)="closeMenu()">Inicio</a>
+    <a routerLink="/" fragment="nosotros" (click)="closeMenu()">Nosotros</a>
+    <a routerLink="/" fragment="servicios" (click)="closeMenu()">Servicios</a>
+    <a routerLink="/" fragment="contacto" (click)="closeMenu()">Contacto</a>
 
     <a
       href="https://wa.me/34686665840"

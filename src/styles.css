@@ -14,3 +14,63 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
+.legal-page-container {
+  padding: 8rem 5% 6rem;
+  background: #ffffff;
+  min-height: 70vh;
+}
+
+.legal-content {
+  max-width: 900px;
+  margin: 0 auto;
+  color: #212529;
+}
+
+.legal-content h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  color: #1b4332;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid #52b788;
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+.legal-content h2,
+.legal-content h3 {
+  color: #1b4332;
+  line-height: 1.35;
+}
+
+.legal-content h2 {
+  font-size: 1.45rem;
+  margin: 2.2rem 0 1rem;
+}
+
+.legal-content h3 {
+  font-size: 1.15rem;
+  margin: 1.6rem 0 0.8rem;
+}
+
+.legal-content p,
+.legal-content li {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.legal-content ul {
+  padding-left: 1.35rem;
+  margin: 0 0 1.5rem;
+}
+
+.legal-content a {
+  color: #1b7f45;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .legal-page-container {
+    padding: 6.5rem 5% 4rem;
+  }
+}
