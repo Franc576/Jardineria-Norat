@@ -1,5 +1,5 @@
 /* ======================================================
-   ABOUT – Clean, centered story card
+   ABOUT – Clean, centered story card and image grid
    ====================================================== */
 
 .about-section {
@@ -8,7 +8,7 @@
 }
 
 .about-container {
-  max-width: 820px;
+  max-width: 1100px;
   margin: 0 auto;
   text-align: center;
 }
@@ -34,6 +34,16 @@
   background: #52b788;
 }
 
+/* ---------- Grid Layout ---------- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+
 .about-card {
   background: #ffffff;
   border-radius: 16px;
@@ -53,7 +63,48 @@
   margin-bottom: 0;
 }
 
+/* ---------- Image Card ---------- */
+
+.about-image-wrapper {
+  width: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  display: flex;
+}
+
+.about-image-wrapper:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.about-img {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.about-image-wrapper:hover .about-img {
+  transform: scale(1.03);
+}
+
 /* ---------- Responsive ---------- */
+
+@media (max-width: 992px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  
+  .about-image-wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
 
 @media (max-width: 768px) {
   .about-section {
@@ -61,7 +112,7 @@
   }
 
   .about-card {
-    padding: 2rem 1.8rem;
+    padding: 2.5rem 2rem;
   }
 
   .section-title {

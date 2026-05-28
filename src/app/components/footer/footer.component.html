@@ -6,11 +6,11 @@
     </h4>
     
     <div class="kit-digital-logos">
-      <div class="logo-wrapper"><img src="https://21691.adrirodrigop11.es/wp-content/uploads/2025/06/l1.png" alt="Logotipo Gobierno de España - Kit Digital" loading="lazy"></div>
-      <div class="logo-wrapper"><img src="https://21691.adrirodrigop11.es/wp-content/uploads/2025/06/l2.png" alt="Logotipo Plan de Recuperación - Kit Digital" loading="lazy"></div>
-      <div class="logo-wrapper"><img src="https://21691.adrirodrigop11.es/wp-content/uploads/2025/06/l3.png" alt="Logotipo Ministerio - Kit Digital" loading="lazy"></div>
-      <div class="logo-wrapper"><img src="https://21691.adrirodrigop11.es/wp-content/uploads/2025/06/l4.png" alt="Logotipo Red.es - Kit Digital" loading="lazy"></div>
-      <div class="logo-wrapper"><img src="https://21691.adrirodrigop11.es/wp-content/uploads/2025/06/l5.png" alt="Logotipo Unión Europea NextGenerationEU - Kit Digital" loading="lazy"></div>
+      <div class="logo-wrapper"><img src="l1.webp" alt="Logotipo Gobierno de España - Kit Digital" loading="lazy"></div>
+      <div class="logo-wrapper"><img src="l2.webp" alt="Logotipo Plan de Recuperación - Kit Digital" loading="lazy"></div>
+      <div class="logo-wrapper"><img src="l3.webp" alt="Logotipo Ministerio - Kit Digital" loading="lazy"></div>
+      <div class="logo-wrapper"><img src="l4.webp" alt="Logotipo Red.es - Kit Digital" loading="lazy"></div>
+      <div class="logo-wrapper"><img src="l5.webp" alt="Logotipo Unión Europea NextGenerationEU - Kit Digital" loading="lazy"></div>
     </div>
     
     <div class="kit-digital-legal-grid">
@@ -36,10 +36,11 @@
 
     <!-- Right: Legal links -->
     <nav class="footer-legal" aria-label="Enlaces legales">
-      <a href="#aviso-legal">Aviso Legal</a>
-      <a href="#privacidad">Privacidad</a>
-      <a href="#cookies">Cookies</a>
-      <a href="#accesibilidad">Accesibilidad</a>
+      <a routerLink="/">Inicio</a>
+      <a [routerLink]="['/aviso-legal']">Aviso Legal</a>
+      <a [routerLink]="['/politica-privacidad']">Política de Privacidad</a>
+      <a [routerLink]="['/politica-cookies']">Política de Cookies</a>
+      <a [routerLink]="['/accesibilidad']">Accesibilidad</a>
     </nav>
   </div>
 </footer>
