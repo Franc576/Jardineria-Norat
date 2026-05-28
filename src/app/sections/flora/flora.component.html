@@ -1,0 +1,14 @@
+<section class="flora">
+  <h2 class="section-title">Flora disponible</h2>
+  <div class="flora-grid">
+    <div class="plant-card" *ngFor="let p of plants">
+      <div class="plant-img-container">
+        <img [src]="'/flora/' + p.image" [alt]="p.name" class="plant-img" />
+      </div>
+      <div class="plant-info">
+        <h3 class="plant-name">{{ p.name }}</h3>
+        <p class="plant-desc">{{ p.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
