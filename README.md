@@ -54,7 +54,20 @@ ng e2e
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
 
-## Additional Resources
+## Configuración de Seguridad y Despliegue en Vercel
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Para que el formulario de contacto funcione correctamente en producción utilizando EmailJS y esté protegido con las mejores prácticas de seguridad, se deben realizar los siguientes pasos de configuración:
+
+### 1. Variables de Entorno en Vercel
+Añade las siguientes tres variables de entorno en el panel de control de Vercel (**Settings > Environment Variables**) de tu proyecto con sus valores correspondientes para inyectarlos en la compilación:
+
+* **`NG_APP_EMAILJS_SERVICE_ID`**: ID del servicio de EmailJS (ej. `service_xxxxxxx`).
+* **`NG_APP_EMAILJS_TEMPLATE_ID`**: ID de la plantilla de correo de EmailJS (ej. `template_xxxxxxx`).
+* **`NG_APP_EMAILJS_PUBLIC_KEY`**: Clave pública de la cuenta de EmailJS (ej. `xxxxxxxxxxxxxxxxx`).
+
+*Nota: El archivo `src/environments/environment.ts` ya cuenta con los mocks seguros en el cliente y valores por defecto para que la aplicación funcione de forma inmediata en entornos locales sin fallos de ejecución.*
+
+### 2. Cabeceras de Seguridad
+El archivo `vercel.json` configurado en la raíz del proyecto inyecta de forma automática cabeceras HTTP robustas de seguridad (como protección anti-clickjacking `X-Frame-Options` y restricción de políticas de permisos a APIs de hardware del usuario).
+
 "# Jardineria-Norat" 

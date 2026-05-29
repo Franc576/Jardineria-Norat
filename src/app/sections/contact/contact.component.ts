@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import emailjs from '@emailjs/browser';
+import { environment } from '../../../environments/environment';
 import { ScrollPlantsComponent } from '../../components/scroll-plants/scroll-plants.component';
 
 @Component({
@@ -33,11 +34,15 @@ export class ContactComponent {
 
     const formElement = event.target as HTMLFormElement;
 
+    // Invocación a EmailJS utilizando variables de configuración de entorno.
+    // Para entornos productivos como Vercel, estas variables pueden ser administradas en el
+    // dashboard del proyecto (Project Settings -> Environment Variables) y procesadas en la
+    // compilación para mayor seguridad y modularidad.
     emailjs.sendForm(
-      'service_pjnea6l',
-      'template_s3uhxmt',
+      environment.emailjsServiceId,
+      environment.emailjsTemplateId,
       formElement,
-      'tjptuMbl0rhyI7s52'
+      environment.emailjsPublicKey
     )
     .then((response) => {
       console.log('EmailJS Éxito:', response.status, response.text);
