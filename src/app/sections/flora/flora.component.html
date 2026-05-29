@@ -1,14 +1,22 @@
 <section id="flora" class="flora" style="position: relative;">
   <app-scroll-plants [section]="'flora'"></app-scroll-plants>
-  <h2 class="section-title">Flora disponible</h2>
-  <div class="flora-grid">
-    <div class="plant-card" *ngFor="let p of plants">
-      <div class="plant-img-container">
-        <img [src]="'/flora/' + p.image" [alt]="p.name" class="plant-img" />
-      </div>
-      <div class="plant-info">
-        <h3 class="plant-name">{{ p.name }}</h3>
-        <p class="plant-desc">{{ p.description }}</p>
+  
+  <div class="flora-header">
+    <h2 class="section-title">Flora disponible</h2>
+    <p class="section-subtitle">Descubre la flora local de Mallorca</p>
+  </div>
+
+  <div class="flora-category-block" *ngFor="let cat of categories">
+    <h3 class="category-title">{{ cat }}</h3>
+    <div class="flora-grid">
+      <div class="plant-card" *ngFor="let p of getPlantsByCategory(cat)">
+        <div class="plant-img-container">
+          <img [src]="'/flora/' + p.image" [alt]="p.name" class="plant-img" loading="lazy" />
+        </div>
+        <div class="plant-info">
+          <h4 class="plant-name">{{ p.name }}</h4>
+          <p class="plant-desc">{{ p.description }}</p>
+        </div>
       </div>
     </div>
   </div>
