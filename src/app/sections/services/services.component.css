@@ -4,19 +4,22 @@
 
 .services-section {
   padding: 6rem 5%;
-  background-color: #ffffff;
+  background-color: var(--color-bg-white);
+  overflow: hidden;
 }
 
 .services-container {
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .section-title {
   font-size: 2.4rem;
   font-weight: 700;
-  color: #1b4332;
+  color: var(--color-primary);
   margin-bottom: 3rem;
   position: relative;
   display: inline-block;
@@ -31,7 +34,7 @@
   width: 60px;
   height: 3px;
   border-radius: 3px;
-  background: #52b788;
+  background: var(--color-accent);
 }
 
 /* ---------- Grid ---------- */
@@ -45,10 +48,10 @@
 /* ---------- Card ---------- */
 
 .service-card {
-  background: #ffffff;
+  background: var(--color-bg-white);
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-organic-sm);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   display: flex;
   flex-direction: column;
@@ -56,7 +59,7 @@
 
 .service-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-organic-lg);
 }
 
 /* ---------- Card Image ---------- */
@@ -89,14 +92,14 @@
 .card-body h3 {
   font-size: 1.2rem;
   font-weight: 700;
-  color: #1b4332;
+  color: var(--color-primary);
   margin: 0 0 0.7rem;
 }
 
 .card-body p {
   font-size: 0.98rem;
   line-height: 1.6;
-  color: #495057;
+  color: var(--color-text-muted);
   margin: 0;
 }
 

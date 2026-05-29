@@ -55,7 +55,7 @@
 }
 
 .nav a:not(.btn-whatsapp):hover {
-  color: #2e7d32;
+  color: var(--color-secondary);
 }
 
 .nav a:not(.btn-whatsapp)::after {
@@ -65,7 +65,7 @@
   height: 2px;
   bottom: -5px;
   left: 0;
-  background: #2e7d32;
+  background: var(--color-secondary);
   border-radius: 2px;
   transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -120,7 +120,7 @@
   width: 26px;
   height: 3px;
   border-radius: 3px;
-  background: #2e7d32;
+  background: var(--color-secondary);
   transition: transform 0.35s ease, opacity 0.25s ease;
 }
 

@@ -29,19 +29,11 @@
   will-change: transform, opacity, filter;
 }
 
-/* Heights mapping precisely to original SVG viewBox aspect ratios */
-.section-about .botanical-plant {
-  height: 520px;
-}
-.section-services .botanical-plant {
-  height: 560px;
-}
-.section-flora .botanical-plant {
-  height: 560px;
-}
-.section-contact .botanical-plant {
-  height: 490px;
-}
+/* Heights mapping to SVG viewBox aspect ratios */
+.section-about .botanical-plant { height: 520px; }
+.section-services .botanical-plant,
+.section-flora .botanical-plant { height: 560px; }
+.section-contact .botanical-plant { height: 490px; }
 
 /* Left plants (Near camera: slightly blurry, soft depth of field) */
 .plant-left {
@@ -384,47 +376,63 @@
 }
 
 @media (max-width: 768px) {
-  /* Keep plants enabled on mobile, but downscaled and pushed outward */
+  :host {
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .scroll-plants-wrapper {
+    overflow: hidden;
+  }
+
+  /* Small subtle decorations hugging the edges */
   .botanical-plant {
-    width: 52px !important;
-    top: 50%;
+    width: 48px !important;
+    height: auto !important;
+    opacity: 0.18 !important;
+    filter: blur(0.5px) !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
   }
-  
-  .section-about .botanical-plant {
-    height: 169px !important;
-  }
-  .section-services .botanical-plant {
-    height: 161px !important;
-  }
-  .section-flora .botanical-plant {
-    height: 161px !important;
-  }
-  .section-contact .botanical-plant {
-    height: 170px !important;
-  }
-  
-  /* Sightly shift outward so they don't cover text! */
+
+  /* Section-specific fixed heights to keep SVG proportions clean */
+  .section-about .botanical-plant { height: 180px !important; }
+  .section-services .botanical-plant { height: 180px !important; }
+  .section-flora .botanical-plant { height: 180px !important; }
+  .section-contact .botanical-plant { height: 170px !important; }
+
   .plant-left {
-    left: -18px !important;
-    filter: blur(0.6px) !important; /* Lighter blur to optimize paint passes on mobile GPUs */
+    left: -6px !important;
+    transform: translateY(-50%) rotate(-3deg) !important;
   }
-  
+
   .plant-right {
-    right: -18px !important;
-    filter: none !important;
+    right: -6px !important;
+    transform: translateY(-50%) rotate(3deg) !important;
   }
-  
-  /* Soft background opacity to remain an elegant and subtle watermark decoration */
-  .botanical-plant {
-    opacity: 0.58 !important;
-  }
-  
-  /* Adjust animation fallbacks for non-timeline scroll browsers on mobile */
-  .plant-left {
-    transform: translateY(-50%) scale(1) rotate(-4deg);
-  }
+
+  /* Kill scroll-driven animation on mobile — use simple gentle sway instead */
+  .plant-left,
   .plant-right {
-    transform: translateY(-50%) scale(1) rotate(2deg);
+    animation: none !important;
+    animation-timeline: unset !important;
+  }
+
+  .plant-left .leaf,
+  .plant-right .leaf {
+    animation: leaf-sway-left 6s ease-in-out infinite alternate;
+  }
+
+  .plant-right .leaf {
+    animation-name: leaf-sway-right;
+  }
+
+  /* Simplify flower animations on mobile */
+  .flower {
+    animation-duration: 10s !important;
+  }
+  .fl-mini {
+    animation-duration: 7s !important;
   }
 }
 
