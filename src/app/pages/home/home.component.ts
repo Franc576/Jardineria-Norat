@@ -8,7 +8,13 @@ import { ContactComponent } from '../../sections/contact/contact.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeroComponent, AboutComponent, ServicesComponent, FloraComponent, ContactComponent],
+  imports: [
+    HeroComponent,
+    AboutComponent,
+    ServicesComponent,
+    FloraComponent,
+    ContactComponent,
+  ],
   templateUrl: './home.component.html'
 })
 export class HomeComponent {}

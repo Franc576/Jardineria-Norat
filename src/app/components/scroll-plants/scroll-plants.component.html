@@ -1,0 +1,650 @@
+<div class="scroll-plants-wrapper" [class]="'section-' + section">
+
+  @if (section === 'about') {
+    <!-- ==========================================
+         SOBRE NOSOTROS: Pareja Simétrica
+         ========================================== -->
+    <div class="botanical-plant plant-left section-about-left">
+      <svg viewBox="0 0 160 520" class="botanical-svg" preserveAspectRatio="xMinYMid meet">
+        <!-- Tallo Principal -->
+        <path class="stem" d="M 0,520 C 35,450 70,360 40,270 C 18,200 32,120 65,0" />
+        
+        <!-- Follaje -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 28,430 C 44,410 65,415 60,432 C 55,445 38,445 28,430" />
+          <path class="leaf leaf-2" d="M 44,370 C 32,350 16,358 22,374 C 28,385 40,380 44,370" />
+          <path class="leaf leaf-3" d="M 46,290 C 62,275 80,288 74,302 C 68,312 52,305 46,290" />
+          <path class="leaf leaf-4" d="M 30,220 C 14,208 6,222 16,236 C 24,246 32,232 30,220" />
+          <path class="leaf leaf-5" d="M 40,150 C 60,140 70,160 62,172 C 54,180 44,165 40,150" />
+          <path class="leaf leaf-6" d="M 50,80 C 38,60 23,70 30,84 C 36,94 46,90 50,80" />
+        </g>
+        
+        <!-- Flores con Wrappers de Traslación Nativos -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(34, 320)">
+            <g class="flower fl-jasmine fl-1">
+              <circle cx="0" cy="0" r="2.8" class="fl-center-yellow" />
+              <path d="M 0,0 C -5,-9 5,-9 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 9,-5 9,5 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 5,9 -5,9 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <g transform="translate(48, 178)">
+            <g class="flower fl-orange fl-2">
+              <circle cx="0" cy="0" r="2.6" class="fl-center-orange" />
+              <path d="M 0,0 C -4,-8 4,-8 0,0" class="petal-orange" />
+              <path d="M 0,0 C 8,-4 8,4 0,0" class="petal-orange" transform="rotate(72)" />
+              <path d="M 0,0 C 4,8 -4,8 0,0" class="petal-orange" transform="rotate(144)" />
+              <path d="M 0,0 C -8,4 -8,-4 0,0" class="petal-orange" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-10 0,0" class="petal-orange" transform="rotate(288)" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores (Pegadas a las hojas 1, 3 y 5) -->
+          <!-- Mini Amarilla en Hoja 1 -->
+          <g transform="translate(40, 425)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -5,3 -5,-3 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -4,-4 2,-6 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Rosa en Hoja 3 -->
+          <g transform="translate(62, 295)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Azul en Hoja 5 -->
+          <g transform="translate(54, 160)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="botanical-plant plant-right section-about-right">
+      <svg viewBox="0 0 160 520" class="botanical-svg" preserveAspectRatio="xMaxYMid meet">
+        <!-- Tallo Principal Reflejado -->
+        <path class="stem" d="M 160,520 C 125,450 90,360 120,270 C 142,200 128,120 95,0" />
+        
+        <!-- Follaje Reflejado -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 132,430 C 116,410 95,415 100,432 C 105,445 122,445 132,430" />
+          <path class="leaf leaf-2" d="M 116,370 C 128,350 144,358 138,374 C 132,385 120,380 116,370" />
+          <path class="leaf leaf-3" d="M 114,290 C 98,275 80,288 86,302 C 92,312 108,305 114,290" />
+          <path class="leaf leaf-4" d="M 130,220 C 146,208 154,222 144,236 C 136,246 128,232 130,220" />
+          <path class="leaf leaf-5" d="M 120,150 C 100,140 90,160 98,172 C 106,180 116,165 120,150" />
+          <path class="leaf leaf-6" d="M 110,80 C 122,60 137,70 130,84 C 124,94 114,90 110,80" />
+        </g>
+        
+        <!-- Flores Reflejadas -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(126, 320)">
+            <g class="flower fl-jasmine fl-1">
+              <circle cx="0" cy="0" r="2.8" class="fl-center-yellow" />
+              <path d="M 0,0 C -5,-9 5,-9 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 9,-5 9,5 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 5,9 -5,9 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <g transform="translate(112, 178)">
+            <g class="flower fl-purple fl-2">
+              <circle cx="0" cy="0" r="2.5" class="fl-center-purple" />
+              <circle cx="-4" cy="-4" r="3.2" class="petal-purple" />
+              <circle cx="4" cy="-4" r="3.2" class="petal-purple" />
+              <circle cx="4" cy="4" r="3.2" class="petal-purple" />
+              <circle cx="-4" cy="4" r="3.2" class="petal-purple" />
+              <circle cx="0" cy="0" r="3.6" class="petal-purple-center" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores Reflejadas (Pegadas a las hojas 1, 3 y 5) -->
+          <!-- Mini Amarilla en Hoja 1 -->
+          <g transform="translate(120, 425)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -5,3 -5,-3 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -4,-4 2,-6 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Rosa en Hoja 3 -->
+          <g transform="translate(98, 295)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Azul en Hoja 5 -->
+          <g transform="translate(106, 160)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  }
+
+  @if (section === 'services') {
+    <!-- ==========================================
+         SERVICIOS: Pareja Simétrica
+         ========================================== -->
+    <div class="botanical-plant plant-left section-services-left">
+      <svg viewBox="0 0 180 560" class="botanical-svg" preserveAspectRatio="xMinYMid meet">
+        <!-- Tallo Principal Reflejado -->
+        <path class="stem" d="M 0,530 C 50,470 98,380 78,290 C 63,210 108,120 88,0" />
+        
+        <!-- Follaje Reflejado -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 32,470 C 60,460 70,475 55,485 C 40,490 28,490 32,470" />
+          <path class="leaf leaf-2" d="M 64,400 C 44,382 37,402 51,415 C 64,425 69,410 64,400" />
+          <path class="leaf leaf-3" d="M 85,330 C 114,325 117,345 101,352 C 85,358 81,340 85,330" />
+          <path class="leaf leaf-4" d="M 77,250 C 54,235 49,258 65,268 C 81,276 83,260 77,250" />
+          <path class="leaf leaf-5" d="M 91,170 C 119,168 124,188 107,195 C 91,200 87,182 91,170" />
+          <path class="leaf leaf-6" d="M 94,100 C 74,85 69,105 84,116 C 99,125 101,110 94,100" />
+        </g>
+        
+        <!-- Flores -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(70, 365)">
+            <g class="flower fl-purple fl-1">
+              <circle cx="0" cy="0" r="2.5" class="fl-center-purple" />
+              <circle cx="-4" cy="-4" r="3.2" class="petal-purple" />
+              <circle cx="4" cy="-4" r="3.2" class="petal-purple" />
+              <circle cx="4" cy="4" r="3.2" class="petal-purple" />
+              <circle cx="-4" cy="4" r="3.2" class="petal-purple" />
+              <circle cx="0" cy="0" r="3.6" class="petal-purple-center" />
+            </g>
+          </g>
+          <g transform="translate(94, 136)">
+            <g class="flower fl-orange fl-2">
+              <circle cx="0" cy="0" r="2.6" class="fl-center-orange" />
+              <path d="M 0,0 C -4,-8 4,-8 0,0" class="petal-orange" />
+              <path d="M 0,0 C 8,-4 8,4 0,0" class="petal-orange" transform="rotate(72)" />
+              <path d="M 0,0 C 4,8 -4,8 0,0" class="petal-orange" transform="rotate(144)" />
+              <path d="M 0,0 C -8,4 -8,-4 0,0" class="petal-orange" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-10 0,0" class="petal-orange" transform="rotate(288)" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores en Hojas 1, 3 y 5 -->
+          <!-- Mini Azul en Hoja 1 -->
+          <g transform="translate(42, 465)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -10,5 -10,-5 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+          <!-- Mini Amarilla en Hoja 3 -->
+          <g transform="translate(95, 330)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -5,3 -5,-3 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -4,-4 2,-6 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Rosa en Hoja 5 -->
+          <g transform="translate(100, 170)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="botanical-plant plant-right section-services-right">
+      <svg viewBox="0 0 180 560" class="botanical-svg" preserveAspectRatio="xMaxYMid meet">
+        <!-- Tallo Principal -->
+        <path class="stem" d="M 180,530 C 130,470 82,380 102,290 C 117,210 72,120 92,0" />
+        
+        <!-- Follaje -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 148,470 C 120,460 110,475 125,485 C 140,490 152,480 148,470" />
+          <path class="leaf leaf-2" d="M 116,400 C 136,382 143,402 129,415 C 116,425 111,410 116,400" />
+          <path class="leaf leaf-3" d="M 95,330 C 66,325 63,345 79,352 C 95,358 99,340 95,330" />
+          <path class="leaf leaf-4" d="M 103,250 C 126,235 131,258 115,268 C 99,276 97,260 103,250" />
+          <path class="leaf leaf-5" d="M 89,170 C 61,168 56,188 73,195 C 89,200 93,182 89,170" />
+          <path class="leaf leaf-6" d="M 86,100 C 106,85 111,105 96,116 C 81,125 79,110 86,100" />
+        </g>
+        
+        <!-- Flores -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(110, 365)">
+            <g class="flower fl-bougainvillea fl-1">
+              <circle cx="0" cy="0" r="3.2" class="fl-center" />
+              <path d="M 0,0 C -6,-10 6,-10 0,0" class="petal" />
+              <path d="M 0,0 C 10,-6 10,6 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 6,10 -6,10 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -10,6 -10,-6 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -8,-8 2,-12 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <g transform="translate(86, 136)">
+            <g class="flower fl-lavender fl-2">
+              <circle cx="0" cy="0" r="2.6" class="fl-center-blue" />
+              <path d="M 0,0 C -5,-10 5,-10 0,0" class="petal-blue" />
+              <path d="M 0,0 C 10,-5 10,5 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 5,10 -5,10 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -10,5 -10,-5 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -5,10 5,10 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 10,-5 10,5 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores en Hojas 1, 3 y 5 -->
+          <!-- Mini Azul en Hoja 1 -->
+          <g transform="translate(138, 465)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+          <!-- Mini Amarilla en Hoja 3 -->
+          <g transform="translate(85, 330)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -5,3 -5,-3 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -4,-4 2,-6 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Rosa en Hoja 5 -->
+          <g transform="translate(80, 170)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  }
+
+  @if (section === 'flora') {
+    <!-- ==========================================
+         FLORA: Pareja Simétrica
+         ========================================== -->
+    <div class="botanical-plant plant-left section-flora-left">
+      <svg viewBox="0 0 180 560" class="botanical-svg" preserveAspectRatio="xMinYMid meet">
+        <!-- Tallo Principal Reflejado -->
+        <path class="stem" d="M 0,530 C 50,470 98,380 78,290 C 63,210 108,120 88,0" />
+        
+        <!-- Follaje Reflejado -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 32,470 C 60,460 70,475 55,485 C 40,490 28,490 32,470" />
+          <path class="leaf leaf-2" d="M 64,400 C 44,382 37,402 51,415 C 64,425 69,410 64,400" />
+          <path class="leaf leaf-3" d="M 85,330 C 114,325 117,345 101,352 C 85,358 81,340 85,330" />
+          <path class="leaf leaf-4" d="M 77,250 C 54,235 49,258 65,268 C 81,276 83,260 77,250" />
+          <path class="leaf leaf-5" d="M 91,170 C 119,168 124,188 107,195 C 91,200 87,182 91,170" />
+          <path class="leaf leaf-6" d="M 94,100 C 74,85 69,105 84,116 C 99,125 101,110 94,100" />
+        </g>
+        
+        <!-- Flores -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(70, 365)">
+            <g class="flower fl-bougainvillea fl-1">
+              <circle cx="0" cy="0" r="3.2" class="fl-center" />
+              <path d="M 0,0 C -6,-10 6,-10 0,0" class="petal" />
+              <path d="M 0,0 C 10,-6 10,6 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 6,10 -6,10 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -10,6 -10,-6 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -8,-8 2,-12 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <g transform="translate(94, 136)">
+            <g class="flower fl-lavender fl-2">
+              <circle cx="0" cy="0" r="2.6" class="fl-center-blue" />
+              <path d="M 0,0 C -5,-10 5,-10 0,0" class="petal-blue" />
+              <path d="M 0,0 C 10,-5 10,5 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 5,10 -5,10 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -10,5 -10,-5 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -5,10 5,10 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 10,-5 10,5 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores en Hojas 1, 3 y 5 -->
+          <!-- Mini Rosa en Hoja 1 -->
+          <g transform="translate(42, 465)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Azul en Hoja 3 -->
+          <g transform="translate(80, 270)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+          <!-- Mini Amarilla en Hoja 5 -->
+          <g transform="translate(88, 100)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="botanical-plant plant-right section-flora-right">
+      <svg viewBox="0 0 180 560" class="botanical-svg" preserveAspectRatio="xMaxYMid meet">
+        <!-- Tallo Principal -->
+        <path class="stem" d="M 180,530 C 130,470 82,380 102,290 C 117,210 72,120 92,0" />
+        
+        <!-- Follaje -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 148,470 C 120,460 110,475 125,485 C 140,490 152,480 148,470" />
+          <path class="leaf leaf-2" d="M 116,400 C 136,382 143,402 129,415 C 116,425 111,410 116,400" />
+          <path class="leaf leaf-3" d="M 95,330 C 66,325 63,345 79,352 C 95,358 99,340 95,330" />
+          <path class="leaf leaf-4" d="M 103,250 C 126,235 131,258 115,268 C 99,276 97,260 103,250" />
+          <path class="leaf leaf-5" d="M 89,170 C 61,168 56,188 73,195 C 89,200 93,182 89,170" />
+          <path class="leaf leaf-6" d="M 86,100 C 106,85 111,105 96,116 C 81,125 79,110 86,100" />
+        </g>
+        
+        <!-- Flores -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(110, 365)">
+            <g class="flower fl-jasmine fl-1">
+              <circle cx="0" cy="0" r="2.8" class="fl-center-yellow" />
+              <path d="M 0,0 C -5,-9 5,-9 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 9,-5 9,5 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 5,9 -5,9 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <g transform="translate(86, 136)">
+            <g class="flower fl-purple fl-2">
+              <circle cx="0" cy="0" r="2.5" class="fl-center-purple" />
+              <circle cx="-4" cy="-4" r="3.2" class="petal-purple" />
+              <circle cx="4" cy="-4" r="3.2" class="petal-purple" />
+              <circle cx="4" cy="4" r="3.2" class="petal-purple" />
+              <circle cx="-4" cy="4" r="3.2" class="petal-purple" />
+              <circle cx="0" cy="0" r="3.6" class="petal-purple-center" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores en Hojas 1, 3 y 5 -->
+          <!-- Mini Rosa en Hoja 1 -->
+          <g transform="translate(148, 450)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Azul en Hoja 3 -->
+          <g transform="translate(100, 270)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+          <!-- Mini Amarilla en Hoja 5 -->
+          <g transform="translate(92, 100)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  }
+
+  @if (section === 'contact') {
+    <!-- ==========================================
+         CONTACTO: Pareja Simétrica
+         ========================================== -->
+    <div class="botanical-plant plant-left section-contact-left">
+      <svg viewBox="0 0 150 490" class="botanical-svg" preserveAspectRatio="xMinYMid meet">
+        <!-- Tallo Principal -->
+        <path class="stem" d="M 0,450 C 35,390 50,310 35,230 C 20,160 35,90 62,0" />
+        
+        <!-- Follaje -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 22,400 C 34,380 54,385 50,402 C 45,412 30,412 22,400" />
+          <path class="leaf leaf-2" d="M 38,340 C 28,320 12,326 18,342 C 24,352 34,348 38,340" />
+          <path class="leaf leaf-3" d="M 36,270 C 52,256 68,268 62,280 C 56,290 42,284 36,270" />
+          <path class="leaf leaf-4" d="M 26,200 C 14,188 4,200 12,212 C 20,222 28,210 26,200" />
+          <path class="leaf leaf-5" d="M 34,130 C 52,120 60,138 52,148 C 44,156 36,144 34,130" />
+          <path class="leaf leaf-6" d="M 44,70 C 32,55 20,65 26,76 C 32,84 40,80 44,70" />
+        </g>
+        
+        <!-- Flores -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(34, 305)">
+            <g class="flower fl-jasmine fl-1">
+              <circle cx="0" cy="0" r="2.8" class="fl-center-yellow" />
+              <path d="M 0,0 C -5,-9 5,-9 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 9,-5 9,5 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 5,9 -5,9 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <g transform="translate(48, 162)">
+            <g class="flower fl-lavender fl-2">
+              <circle cx="0" cy="0" r="2.6" class="fl-center-blue" />
+              <path d="M 0,0 C -5,-10 5,-10 0,0" class="petal-blue" />
+              <path d="M 0,0 C 10,-5 10,5 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 5,10 -5,10 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -10,5 -10,-5 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -5,10 5,10 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 10,-5 10,5 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores en Hojas 1, 3 y 5 -->
+          <!-- Mini Amarilla en Hoja 1 -->
+          <g transform="translate(34, 395)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -5,3 -5,-3 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -4,-4 2,-6 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Rosa en Hoja 3 -->
+          <g transform="translate(50, 270)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Azul en Hoja 5 -->
+          <g transform="translate(44, 135)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+
+    <div class="botanical-plant plant-right section-contact-right">
+      <svg viewBox="0 0 150 490" class="botanical-svg" preserveAspectRatio="xMinYMid meet">
+        <!-- Tallo Principal Reflejado -->
+        <path class="stem" d="M 150,450 C 115,390 100,310 115,230 C 130,160 115,90 88,0" />
+        
+        <!-- Follaje Reflejado -->
+        <g class="foliage">
+          <path class="leaf leaf-1" d="M 128,400 C 116,380 96,385 100,402 C 105,412 120,412 128,400" />
+          <path class="leaf leaf-2" d="M 112,340 C 122,320 138,326 132,342 C 126,352 116,348 112,340" />
+          <path class="leaf leaf-3" d="M 114,270 C 98,256 82,268 88,280 C 94,290 108,284 114,270" />
+          <path class="leaf leaf-4" d="M 124,200 C 136,188 146,200 138,212 C 130,222 122,210 124,200" />
+          <path class="leaf leaf-5" d="M 116,130 C 98,120 90,138 98,148 C 106,156 114,144 116,130" />
+          <path class="leaf leaf-6" d="M 106,70 C 118,55 130,65 124,76 C 118,84 110,80 106,70" />
+        </g>
+        
+        <!-- Flores Reflejadas -->
+        <g class="blooms">
+          <!-- Flores Grandes -->
+          <g transform="translate(116, 305)">
+            <g class="flower fl-jasmine fl-1">
+              <circle cx="0" cy="0" r="2.8" class="fl-center-yellow" />
+              <path d="M 0,0 C -5,-9 5,-9 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 9,-5 9,5 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 5,9 -5,9 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <g transform="translate(102, 162)">
+            <g class="flower fl-orange fl-2">
+              <circle cx="0" cy="0" r="2.6" class="fl-center-orange" />
+              <path d="M 0,0 C -4,-8 4,-8 0,0" class="petal-orange" />
+              <path d="M 0,0 C 8,-4 8,4 0,0" class="petal-orange" transform="rotate(72)" />
+              <path d="M 0,0 C 4,8 -4,8 0,0" class="petal-orange" transform="rotate(144)" />
+              <path d="M 0,0 C -8,4 -8,-4 0,0" class="petal-orange" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-10 0,0" class="petal-orange" transform="rotate(288)" />
+            </g>
+          </g>
+          
+          <!-- Mini Flores en Hojas 1, 3 y 5 -->
+          <!-- Mini Amarilla en Hoja 1 -->
+          <g transform="translate(116, 395)">
+            <g class="fl-mini fl-yellow">
+              <circle cx="0" cy="0" r="1.5" class="fl-center-yellow" />
+              <path d="M 0,0 C -3,-5 3,-5 0,0" class="petal-yellow" />
+              <path d="M 0,0 C 5,-3 5,3 0,0" class="petal-yellow" transform="rotate(72)" />
+              <path d="M 0,0 C 3,5 -3,5 0,0" class="petal-yellow" transform="rotate(144)" />
+              <path d="M 0,0 C -9,5 -9,-5 0,0" class="petal-yellow" transform="rotate(216)" />
+              <path d="M 0,0 C -7,-7 3,-11 0,0" class="petal-yellow" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Rosa en Hoja 3 -->
+          <g transform="translate(100, 270)">
+            <g class="fl-mini fl-pink">
+              <circle cx="0" cy="0" r="1.8" class="fl-center" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal" transform="rotate(72)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal" transform="rotate(144)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal" transform="rotate(216)" />
+              <path d="M 0,0 C -5,-5 1,-7 0,0" class="petal" transform="rotate(288)" />
+            </g>
+          </g>
+          <!-- Mini Azul en Hoja 5 -->
+          <g transform="translate(106, 135)">
+            <g class="fl-mini fl-blue">
+              <circle cx="0" cy="0" r="1.4" class="fl-center-blue" />
+              <path d="M 0,0 C -3,-6 3,-6 0,0" class="petal-blue" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(60)" />
+              <path d="M 0,0 C 3,6 -3,6 0,0" class="petal-blue" transform="rotate(120)" />
+              <path d="M 0,0 C -6,3 -6,-3 0,0" class="petal-blue" transform="rotate(180)" />
+              <path d="M 0,0 C -3,6 3,6 0,0" class="petal-blue" transform="rotate(240)" />
+              <path d="M 0,0 C 6,-3 6,3 0,0" class="petal-blue" transform="rotate(300)" />
+            </g>
+          </g>
+        </g>
+      </svg>
+    </div>
+  }
+
+</div>

@@ -8,8 +8,80 @@ import {
 } from '@angular/core';
 import * as THREE from 'three';
 
+/* ─── Custom Shaders ─── */
+
+const PLANT_VERTEX = `
+  varying vec2 vUv;
+  void main() {
+    vUv = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`;
+
+const PLANT_FRAGMENT = `
+  uniform sampler2D uMap;
+  uniform float uOpacity;
+  varying vec2 vUv;
+
+  void main() {
+    vec4 color = texture2D(uMap, vUv);
+    
+    // Chroma Key distance from light grey #dcdcdc
+    vec3 keyColor = vec3(0.8627, 0.8627, 0.8627); // #dcdcdc
+    float dist = distance(color.rgb, keyColor);
+    
+    // Radial protective mask to prevent clipping light pot colors in the center
+    vec2 center = vec2(0.5, 0.5);
+    float distToCenter = distance(vUv, center);
+    
+    // Soft thresholds: increase tolerance toward the edges, protect the center
+    float baseTolerance = 0.17;
+    float tolerance = baseTolerance + smoothstep(0.18, 0.55, distToCenter) * 0.28;
+    float feather = 0.09;
+    
+    float alpha = smoothstep(tolerance, tolerance + feather, dist);
+    
+    // Vignette mask to smoothly hide the absolute boundaries of the 16:9 plane
+    float vignette = smoothstep(0.48, 0.32, abs(vUv.x - 0.5)) * 
+                     smoothstep(0.48, 0.32, abs(vUv.y - 0.5));
+    
+    gl_FragColor = vec4(color.rgb, color.a * alpha * vignette * uOpacity);
+  }
+`;
+
+// Soft, glowing circular micro-particle shader for gold pollen
+const PARTICLE_VERTEX = `
+  attribute float aSize;
+  attribute float aAlpha;
+  varying float vAlpha;
+  varying vec3 vColor;
+
+  void main() {
+    vAlpha = aAlpha;
+    vColor = color;
+    vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+    gl_PointSize = aSize * (220.0 / -mvPos.z);
+    gl_Position = projectionMatrix * mvPos;
+  }
+`;
+
+const PARTICLE_FRAGMENT = `
+  varying float vAlpha;
+  varying vec3 vColor;
+
+  void main() {
+    // Soft circular gradient for gold pollen look
+    float d = length(gl_PointCoord - vec2(0.5));
+    if (d > 0.5) discard;
+    float soft = 1.0 - smoothstep(0.15, 0.5, d);
+    gl_FragColor = vec4(vColor, vAlpha * soft);
+  }
+`;
+
+/* ─── Types ─── */
+
 type ParticleLayer = {
-  points: THREE.Points<THREE.BufferGeometry, THREE.PointsMaterial>;
+  points: THREE.Points<THREE.BufferGeometry, THREE.ShaderMaterial>;
   speeds: Float32Array;
   phases: Float32Array;
   drift: Float32Array;
@@ -30,7 +102,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   private canvasRef!: ElementRef<HTMLCanvasElement>;
 
   private static readonly TOTAL_FRAMES = 52;
-  private static readonly ANIM_FPS = 10;
+  private static readonly ANIM_FPS = 12;
   private static readonly FRAME_RATIO = 16 / 9;
   private static readonly FRUSTUM = 5;
   private static readonly SEQUENCE_DIR =
@@ -50,10 +122,9 @@ export class HeroComponent implements OnInit, OnDestroy {
   private generatedTextures: THREE.Texture[] = [];
   private particleLayers: ParticleLayer[] = [];
 
-  private plantPlane?: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
+  private plantPlane?: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>;
   private glowMesh?: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
   private shadowMesh?: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
-  private pedestalMesh?: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
 
   private rafId = 0;
   private clock = new THREE.Clock();
@@ -66,6 +137,10 @@ export class HeroComponent implements OnInit, OnDestroy {
   private handleResize = this.onResize.bind(this);
 
   constructor(private zone: NgZone) {}
+
+  /* ══════════════════════════════════════════════════════════
+     Lifecycle
+     ══════════════════════════════════════════════════════════ */
 
   ngOnInit(): void {
     this.mobile = window.innerWidth < 992;
@@ -83,6 +158,10 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.disposeObject(this.scene);
     this.renderer?.dispose();
   }
+
+  /* ══════════════════════════════════════════════════════════
+     Bootstrap
+     ══════════════════════════════════════════════════════════ */
 
   private bootstrap(): void {
     this.initRenderer();
@@ -116,7 +195,7 @@ export class HeroComponent implements OnInit, OnDestroy {
       alpha: true,
     });
     this.renderer.setSize(w, h);
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.setClearColor(0x000000, 0);
 
@@ -182,24 +261,32 @@ export class HeroComponent implements OnInit, OnDestroy {
     });
   }
 
+  /* ══════════════════════════════════════════════════════════
+     Showcase Builder (Chroma Key & Particle pollen)
+     ══════════════════════════════════════════════════════════ */
+
   private buildShowcase(): void {
     this.buildPlantPlane();
     this.buildLightWash();
     this.buildGroundingShadow();
-    this.buildPedestalGlow();
     this.buildParticleLayers();
   }
 
   private buildPlantPlane(): void {
     const { pw, ph } = this.planeSize();
     const geometry = new THREE.PlaneGeometry(pw, ph);
-    const material = new THREE.MeshBasicMaterial({
-      map: this.textures[0],
+    
+    // ShaderMaterial for dinamyc Chroma Keying transparency and Vignette removal
+    const material = new THREE.ShaderMaterial({
+      vertexShader: PLANT_VERTEX,
+      fragmentShader: PLANT_FRAGMENT,
+      uniforms: {
+        uMap: { value: this.textures[0] },
+        uOpacity: { value: 0 },
+      },
       transparent: true,
-      opacity: 0,
       depthTest: false,
       depthWrite: false,
-      toneMapped: false,
     });
 
     this.plantPlane = new THREE.Mesh(geometry, material);
@@ -209,14 +296,14 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   private buildLightWash(): void {
     const texture = this.createRadialTexture(
-      'rgba(255, 245, 212, 0.55)',
+      'rgba(255, 245, 212, 0.45)', // Warm golden glow
       'rgba(255, 245, 212, 0)'
     );
     const { vw, vh } = this.viewSize();
     const material = new THREE.MeshBasicMaterial({
       map: texture,
       transparent: true,
-      opacity: 0.5,
+      opacity: 0.45,
       depthTest: false,
       depthWrite: false,
       blending: THREE.AdditiveBlending,
@@ -232,9 +319,10 @@ export class HeroComponent implements OnInit, OnDestroy {
   }
 
   private buildGroundingShadow(): void {
+    // Sutil elliptical shadow under the pot to ground it cleanly
     const texture = this.createRadialTexture(
-      'rgba(74, 48, 24, 0.34)',
-      'rgba(74, 48, 24, 0)'
+      'rgba(52, 34, 18, 0.28)',
+      'rgba(52, 34, 18, 0)'
     );
     const material = new THREE.MeshBasicMaterial({
       map: texture,
@@ -245,62 +333,51 @@ export class HeroComponent implements OnInit, OnDestroy {
     });
 
     this.shadowMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.7, 0.68),
+      new THREE.PlaneGeometry(2.4, 0.58),
       material
     );
-    this.shadowMesh.position.set(0, -1.78, 1.25);
+    this.shadowMesh.position.set(0, -1.82, 1.25);
     this.shadowMesh.renderOrder = 5;
     this.foregroundLayer.add(this.shadowMesh);
   }
 
-  private buildPedestalGlow(): void {
-    const texture = this.createPedestalTexture();
-    const material = new THREE.MeshBasicMaterial({
-      map: texture,
-      transparent: true,
-      opacity: 0,
-      depthTest: false,
-      depthWrite: false,
-    });
-
-    this.pedestalMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(3.25, 0.42),
-      material
-    );
-    this.pedestalMesh.position.set(0, -1.93, 1.3);
-    this.pedestalMesh.renderOrder = 6;
-    this.foregroundLayer.add(this.pedestalMesh);
-  }
+  /* ══════════════════════════════════════════════════════════
+     Mini Golden Pollen Particles
+     ══════════════════════════════════════════════════════════ */
 
   private buildParticleLayers(): void {
+    const countFar = this.mobile ? 20 : 65;
+    const countNear = this.mobile ? 6 : 18;
+
+    // Finer, smaller and more subtle golden pollen particles
     const far = this.createParticleLayer({
-      count: this.mobile ? 36 : 95,
-      size: this.mobile ? 1.8 : 2.2,
-      opacity: 0.2,
-      rangeX: 7.2,
-      rangeY: 5.4,
+      count: countFar,
+      sizeMin: 0.005,
+      sizeMax: 0.015,
+      opacityMin: 0.08,
+      opacityMax: 0.22,
+      rangeX: 6.8,
+      rangeY: 5.2,
       z: 1.35,
-      sway: 0.0012,
-      speedMin: 0.03,
-      speedMax: 0.12,
-      excludeX: 0.9,
-      excludeY: 0.6,
-      palette: ['#f1d381', '#d9bd64', '#b9d8a4', '#9fc992'],
+      sway: 0.0008,
+      speedMin: 0.012,
+      speedMax: 0.045,
+      palette: ['#ffd45b', '#f4d068', '#ffe596', '#9fc992'],
     });
 
     const near = this.createParticleLayer({
-      count: this.mobile ? 10 : 24,
-      size: this.mobile ? 3.6 : 5.2,
-      opacity: 0.26,
-      rangeX: 6.8,
-      rangeY: 5.0,
+      count: countNear,
+      sizeMin: 0.015,
+      sizeMax: 0.028,
+      opacityMin: 0.12,
+      opacityMax: 0.28,
+      rangeX: 6.2,
+      rangeY: 4.8,
       z: 1.75,
-      sway: 0.0024,
-      speedMin: 0.05,
-      speedMax: 0.18,
-      excludeX: 1.35,
-      excludeY: 0.95,
-      palette: ['#ffe7a3', '#e8c96d', '#c7dfb0'],
+      sway: 0.0016,
+      speedMin: 0.02,
+      speedMax: 0.065,
+      palette: ['#ffe294', '#ffd97d', '#c7dfb0'],
     });
 
     this.particleLayers.push(far, near);
@@ -310,39 +387,42 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   private createParticleLayer(config: {
     count: number;
-    size: number;
-    opacity: number;
+    sizeMin: number;
+    sizeMax: number;
+    opacityMin: number;
+    opacityMax: number;
     rangeX: number;
     rangeY: number;
     z: number;
     sway: number;
     speedMin: number;
     speedMax: number;
-    excludeX: number;
-    excludeY: number;
     palette: string[];
   }): ParticleLayer {
     const positions = new Float32Array(config.count * 3);
     const colors = new Float32Array(config.count * 3);
+    const sizes = new Float32Array(config.count);
+    const alphas = new Float32Array(config.count);
     const speeds = new Float32Array(config.count);
     const phases = new Float32Array(config.count);
     const drift = new Float32Array(config.count);
     const palette = config.palette.map((value) => new THREE.Color(value));
 
     for (let i = 0; i < config.count; i++) {
-      const point = this.randomParticlePosition(config);
       const i3 = i * 3;
-      positions[i3] = point.x;
-      positions[i3 + 1] = point.y;
-      positions[i3 + 2] = config.z + Math.random() * 0.2;
+      
+      positions[i3] = (Math.random() - 0.5) * config.rangeX;
+      positions[i3 + 1] = (Math.random() - 0.5) * config.rangeY;
+      positions[i3 + 2] = config.z + Math.random() * 0.15;
 
       const color = palette[Math.floor(Math.random() * palette.length)];
       colors[i3] = color.r;
       colors[i3 + 1] = color.g;
       colors[i3 + 2] = color.b;
 
-      speeds[i] =
-        config.speedMin + Math.random() * (config.speedMax - config.speedMin);
+      sizes[i] = config.sizeMin + Math.random() * (config.sizeMax - config.sizeMin);
+      alphas[i] = config.opacityMin + Math.random() * (config.opacityMax - config.opacityMin);
+      speeds[i] = config.speedMin + Math.random() * (config.speedMax - config.speedMin);
       phases[i] = Math.random() * Math.PI * 2;
       drift[i] = Math.random() > 0.5 ? 1 : -1;
     }
@@ -350,16 +430,16 @@ export class HeroComponent implements OnInit, OnDestroy {
     const geometry = new THREE.BufferGeometry();
     geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.setAttribute('aSize', new THREE.BufferAttribute(sizes, 1));
+    geometry.setAttribute('aAlpha', new THREE.BufferAttribute(alphas, 1));
 
-    const material = new THREE.PointsMaterial({
-      size: config.size * Math.min(window.devicePixelRatio, 2),
-      sizeAttenuation: false,
+    const material = new THREE.ShaderMaterial({
+      vertexShader: PARTICLE_VERTEX,
+      fragmentShader: PARTICLE_FRAGMENT,
       transparent: true,
-      opacity: config.opacity,
-      vertexColors: true,
-      blending: THREE.AdditiveBlending,
-      depthTest: false,
       depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      vertexColors: true,
     });
 
     const points = new THREE.Points(geometry, material);
@@ -376,22 +456,9 @@ export class HeroComponent implements OnInit, OnDestroy {
     };
   }
 
-  private randomParticlePosition(config: {
-    rangeX: number;
-    rangeY: number;
-    excludeX: number;
-    excludeY: number;
-  }): { x: number; y: number } {
-    let x = 0;
-    let y = 0;
-
-    do {
-      x = (Math.random() - 0.5) * config.rangeX;
-      y = (Math.random() - 0.5) * config.rangeY;
-    } while (Math.abs(x) < config.excludeX && Math.abs(y) < config.excludeY);
-
-    return { x, y };
-  }
+  /* ══════════════════════════════════════════════════════════
+     Animation loop & triggers
+     ══════════════════════════════════════════════════════════ */
 
   private tick(): void {
     this.rafId = requestAnimationFrame(() => this.tick());
@@ -421,9 +488,8 @@ export class HeroComponent implements OnInit, OnDestroy {
     }
 
     const nextTexture = this.textures[this.frameIndex];
-    if (this.plantPlane.material.map !== nextTexture) {
-      this.plantPlane.material.map = nextTexture;
-      this.plantPlane.material.needsUpdate = true;
+    if (this.plantPlane.material.uniforms['uMap'].value !== nextTexture) {
+      this.plantPlane.material.uniforms['uMap'].value = nextTexture;
     }
   }
 
@@ -438,9 +504,12 @@ export class HeroComponent implements OnInit, OnDestroy {
 
       for (let i = 0; i < count; i++) {
         const i3 = i * 3;
+        // Float upwards
         positions[i3 + 1] += layer.speeds[i] * dt;
+        
+        // Horizontal drift sway
         positions[i3] +=
-          Math.sin(t * 0.45 + layer.phases[i]) *
+          Math.sin(t * 0.35 + layer.phases[i]) *
           layer.sway *
           layer.drift[i];
 
@@ -456,18 +525,14 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   private animateIntro(progress: number): void {
     if (this.plantPlane) {
-      this.plantPlane.material.opacity = progress;
+      this.plantPlane.material.uniforms['uOpacity'].value = progress;
       const scale = 0.985 + progress * 0.015;
       this.plantLayer.scale.setScalar(scale);
       this.plantLayer.position.y = (1 - progress) * -0.08;
     }
 
     if (this.shadowMesh) {
-      this.shadowMesh.material.opacity = 0.55 * progress;
-    }
-
-    if (this.pedestalMesh) {
-      this.pedestalMesh.material.opacity = 0.72 * progress;
+      this.shadowMesh.material.opacity = 0.48 * progress;
     }
   }
 
@@ -619,35 +684,6 @@ export class HeroComponent implements OnInit, OnDestroy {
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, size, size);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    this.generatedTextures.push(texture);
-    return texture;
-  }
-
-  private createPedestalTexture(): THREE.Texture {
-    const canvas = document.createElement('canvas');
-    canvas.width = 512;
-    canvas.height = 128;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      throw new Error('Canvas 2D context unavailable');
-    }
-
-    const glow = ctx.createRadialGradient(256, 64, 18, 256, 64, 240);
-    glow.addColorStop(0, 'rgba(255, 235, 190, 0.42)');
-    glow.addColorStop(0.45, 'rgba(185, 126, 67, 0.18)');
-    glow.addColorStop(1, 'rgba(185, 126, 67, 0)');
-    ctx.fillStyle = glow;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    ctx.strokeStyle = 'rgba(255, 245, 220, 0.36)';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.ellipse(256, 64, 205, 28, 0, 0, Math.PI * 2);
-    ctx.stroke();
 
     const texture = new THREE.CanvasTexture(canvas);
     texture.colorSpace = THREE.SRGBColorSpace;
