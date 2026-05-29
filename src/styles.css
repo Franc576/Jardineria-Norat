@@ -1,15 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
+:root {
+  /* Brand Green Palette */
+  --color-primary: #1b4332;       /* Deep Forest Green (Headers, prominent text) */
+  --color-primary-rgb: 27, 67, 50;
+  
+  --color-primary-dark: #133c2a;  /* Even deeper forest green for high contrast */
+  
+  --color-secondary: #40916c;     /* Mid Sage Green (Subtitles, hover states, links) */
+  --color-secondary-rgb: 64, 145, 108;
+  
+  --color-accent: #52b788;        /* Mint/Emerald Green (CTAs, borders, accent highlights) */
+  --color-accent-rgb: 82, 183, 136;
+  
+  --color-accent-hover: #40916c;  /* Darker accent for active states */
+  
+  /* Neutral Colors */
+  --color-bg-light: #f8f9fa;      /* Warm light grey for alternative sections */
+  --color-bg-white: #ffffff;      /* Pure white for cards and forms */
+  --color-text-dark: #212529;     /* Main text color */
+  --color-text-muted: #495057;    /* Slate/muted text for descriptions */
+  --color-border-organic: rgba(27, 67, 50, 0.08); /* Organic forest-themed light border */
+  
+  /* Shadows */
+  --shadow-organic-sm: 0 4px 15px rgba(27, 67, 50, 0.04);
+  --shadow-organic-md: 0 8px 24px rgba(27, 67, 50, 0.06);
+  --shadow-organic-lg: 0 12px 30px rgba(27, 67, 50, 0.08);
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Inter', sans-serif;
   background-color: #fcfcfc;
-  color: #333;
+  color: var(--color-text-dark);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -17,28 +49,28 @@ body {
 
 .legal-page-container {
   padding: 8rem 5% 6rem;
-  background: #ffffff;
+  background: var(--color-bg-white);
   min-height: 70vh;
 }
 
 .legal-content {
   max-width: 900px;
   margin: 0 auto;
-  color: #212529;
+  color: var(--color-text-dark);
 }
 
 .legal-content h1 {
   font-size: clamp(2rem, 4vw, 2.5rem);
-  color: #1b4332;
+  color: var(--color-primary);
   margin-bottom: 2rem;
-  border-bottom: 3px solid #52b788;
+  border-bottom: 3px solid var(--color-accent);
   padding-bottom: 0.5rem;
   display: inline-block;
 }
 
 .legal-content h2,
 .legal-content h3 {
-  color: #1b4332;
+  color: var(--color-primary);
   line-height: 1.35;
 }
 
@@ -65,7 +97,7 @@ body {
 }
 
 .legal-content a {
-  color: #1b7f45;
+  color: var(--color-secondary);
   font-weight: 600;
 }
 

@@ -1,16 +1,18 @@
 .flora {
-  padding: 4rem 2rem;
+  padding: 6rem 5%;
   background: linear-gradient(180deg, #f7f9f8 0%, #ffffff 100%);
+  overflow: hidden;
 }
 
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #1e3d2f;
+  color: var(--color-primary);
   margin-bottom: 3rem;
   text-align: center;
   position: relative;
   letter-spacing: -0.5px;
+  z-index: 2;
 }
 
 .section-title::after {
@@ -18,7 +20,7 @@
   display: block;
   width: 50px;
   height: 4px;
-  background: #4caf50;
+  background: var(--color-accent);
   margin: 0.75rem auto 0;
   border-radius: 2px;
 }
@@ -29,14 +31,16 @@
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .plant-card {
-  background: #ffffff;
+  background: var(--color-bg-white);
   border-radius: 1rem;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border: 1px solid rgba(46, 90, 68, 0.08);
+  box-shadow: var(--shadow-organic-sm);
+  border: 1px solid var(--color-border-organic);
   display: flex;
   flex-direction: column;
   transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1),
@@ -46,7 +50,7 @@
 
 .plant-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(46, 90, 68, 0.12);
+  box-shadow: var(--shadow-organic-lg);
 }
 
 .plant-img-container {
@@ -79,20 +83,64 @@
 .plant-name {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1e3d2f;
+  color: var(--color-primary);
   margin-bottom: 0.5rem;
   transition: color 0.3s ease;
 }
 
 .plant-card:hover .plant-name {
-  color: #4caf50;
+  color: var(--color-accent);
 }
 
 .plant-desc {
   font-size: 0.925rem;
   line-height: 1.5;
-  color: #556b60;
+  color: var(--color-text-muted);
   margin: 0;
   flex-grow: 1;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 768px) {
+  .flora {
+    padding: 4rem 5%;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .flora-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .plant-img-container {
+    height: 160px;
+  }
+
+  .plant-info {
+    padding: 1rem;
+  }
+
+  .plant-name {
+    font-size: 1.05rem;
+  }
+
+  .plant-desc {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .flora-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .plant-img-container {
+    height: 200px;
+  }
 }
 

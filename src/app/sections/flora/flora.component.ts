@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ScrollPlantsComponent } from '../../components/scroll-plants/scroll-plants.component';
 
 /**
  * Componente que muestra la sección de flora con todas las fotos recuperadas.
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './flora.component.html',
   styleUrl: './flora.component.css',
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, ScrollPlantsComponent]
 })
 export class FloraComponent {
   /** Lista de plantas y sus imágenes */

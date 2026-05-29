@@ -4,19 +4,22 @@
 
 .about-section {
   padding: 6rem 5%;
-  background-color: #f8f9fa;
+  background-color: var(--color-bg-light);
+  overflow: hidden;
 }
 
 .about-container {
   max-width: 1100px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 
 .section-title {
   font-size: 2.4rem;
   font-weight: 700;
-  color: #1b4332;
+  color: var(--color-primary);
   margin-bottom: 2.5rem;
   position: relative;
   display: inline-block;
@@ -31,7 +34,7 @@
   width: 60px;
   height: 3px;
   border-radius: 3px;
-  background: #52b788;
+  background: var(--color-accent);
 }
 
 /* ---------- Grid Layout ---------- */
@@ -45,17 +48,17 @@
 }
 
 .about-card {
-  background: #ffffff;
+  background: var(--color-bg-white);
   border-radius: 16px;
   padding: 3rem 3.5rem;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-organic-md);
   text-align: left;
 }
 
 .about-card p {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #212529;
+  color: var(--color-text-dark);
   margin: 0 0 1.4rem;
 }
 
@@ -69,14 +72,14 @@
   width: 100%;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-organic-md);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   display: flex;
 }
 
 .about-image-wrapper:hover {
   transform: translateY(-6px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-organic-lg);
 }
 
 .about-img {
