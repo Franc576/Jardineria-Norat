@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ScrollPlantsComponent } from '../../components/scroll-plants/scroll-plants.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Componente que muestra la sección de flora con todas las fotos recuperadas.
@@ -12,34 +13,34 @@ import { ScrollPlantsComponent } from '../../components/scroll-plants/scroll-pla
   templateUrl: './flora.component.html',
   styleUrl: './flora.component.css',
   standalone: true,
-  imports: [CommonModule, ScrollPlantsComponent]
+  imports: [CommonModule, ScrollPlantsComponent, TranslateModule]
 })
 export class FloraComponent {
   /** Lista de plantas y sus imágenes clasificada por categoría */
   readonly plants = [
-    { name: 'Adelfa', image: 'adelfadefloracion.jpg', description: 'Arbusto perenne muy resistente con flores de colores vivos, ideal para setos en climas mediterráneos.', category: 'Arbustos' },
-    { name: 'Agapanto', image: 'agapato.webp', description: 'Planta ornamental de hermosas flores agrupadas en tonos azulados o blancos, perfecta para borduras.', category: 'Flores' },
-    { name: 'Agave', image: 'agave.jpg', description: 'Suculenta de gran tamaño con hojas carnosas y espinosas, ideal para jardines de bajo mantenimiento.', category: 'Arbustos' },
-    { name: 'Algarrobo', image: 'algarrobo.jpg', description: 'Árbol mediterráneo perenne que ofrece una sombra densa y produce vainas dulces comestibles.', category: 'Árboles' },
-    { name: 'Buganvilla', image: 'bugambilla.webp', description: 'Arbusto trepador espectacular con brácteas de colores vibrantes y gran resistencia al sol.', category: 'Arbustos' },
-    { name: 'Ciprés Totem', image: 'ciprestotem.webp', description: 'Árbol columnar de crecimiento vertical muy compacto, ideal para crear límites visuales elegantes.', category: 'Árboles' },
-    { name: 'Jazmín Estrellado', image: 'jazminestrellado.jpg', description: 'Trepadora de follaje denso con delicadas flores blancas muy perfumadas que florecen en primavera.', category: 'Flores' },
-    { name: 'Lantana', image: 'lantana.jpg', description: 'Arbusto rústico y florido cuyas flores cambian de color, atrayendo a mariposas y polinizadores.', category: 'Arbustos' },
-    { name: 'Lavanda', image: 'lavanda.jpg', description: 'Planta aromática con flores de color violeta intenso, famosa por su fragancia relajante y sus propiedades.', category: 'Flores' },
-    { name: 'Limonero', image: 'limonero.jpg', description: 'Árbol frutal cítrico que produce frutos ácidos y hojas muy aromáticas durante gran parte del año.', category: 'Árboles' },
-    { name: 'Naranjo', image: 'naranjero.jpg', description: 'Árbol frutal clásico de azahar perfumado y hojas verde brillante, productor de deliciosas naranjas.', category: 'Árboles' },
-    { name: 'Olivo', image: 'olivo.jpg', description: 'Árbol mediterráneo ancestral de hojas plateadas, conocido por su longevidad y la producción de aceitunas.', category: 'Árboles' },
-    { name: 'Palmito', image: 'palmito.jpg', description: 'Palmera arbustiva nativa de la región mediterránea, muy resistente y de gran valor ornamental.', category: 'Arbustos' },
-    { name: 'Romero', image: 'romero.jpg', description: 'Arbusto aromático perenne muy resistente, ideal para condimentar y con un follaje siempre verde.', category: 'Arbustos' },
-    { name: 'Santolina', image: 'santolina.JPG', description: 'Pequeño arbusto compacto con hojas plateadas y abundantes flores amarillas en forma de botón.', category: 'Arbustos' },
-    { name: 'Strelitzia', image: 'strelitzia.jpg', description: 'Planta exótica conocida como "ave del paraíso" debido a la forma y vivos colores de sus flores.', category: 'Flores' }
+    { nameKey: 'PLANT_Adelfa_NAME', descKey: 'PLANT_Adelfa_DESC', image: 'adelfadefloracion.jpg', categoryKey: 'CAT_SHRUBS' },
+    { nameKey: 'PLANT_Agapanto_NAME', descKey: 'PLANT_Agapanto_DESC', image: 'agapato.webp', categoryKey: 'CAT_FLOWERS' },
+    { nameKey: 'PLANT_Agave_NAME', descKey: 'PLANT_Agave_DESC', image: 'agave.jpg', categoryKey: 'CAT_SHRUBS' },
+    { nameKey: 'PLANT_Algarrobo_NAME', descKey: 'PLANT_Algarrobo_DESC', image: 'algarrobo.jpg', categoryKey: 'CAT_TREES' },
+    { nameKey: 'PLANT_Buganvilla_NAME', descKey: 'PLANT_Buganvilla_DESC', image: 'bugambilla.webp', categoryKey: 'CAT_SHRUBS' },
+    { nameKey: 'PLANT_Ciprés Totem_NAME', descKey: 'PLANT_Ciprés Totem_DESC', image: 'ciprestotem.webp', categoryKey: 'CAT_TREES' },
+    { nameKey: 'PLANT_Jazmín Estrellado_NAME', descKey: 'PLANT_Jazmín Estrellado_DESC', image: 'jazminestrellado.jpg', categoryKey: 'CAT_FLOWERS' },
+    { nameKey: 'PLANT_Lantana_NAME', descKey: 'PLANT_Lantana_DESC', image: 'lantana.jpg', categoryKey: 'CAT_SHRUBS' },
+    { nameKey: 'PLANT_Lavanda_NAME', descKey: 'PLANT_Lavanda_DESC', image: 'lavanda.jpg', categoryKey: 'CAT_FLOWERS' },
+    { nameKey: 'PLANT_Limonero_NAME', descKey: 'PLANT_Limonero_DESC', image: 'limonero.jpg', categoryKey: 'CAT_TREES' },
+    { nameKey: 'PLANT_Naranjo_NAME', descKey: 'PLANT_Naranjo_DESC', image: 'naranjero.jpg', categoryKey: 'CAT_TREES' },
+    { nameKey: 'PLANT_Olivo_NAME', descKey: 'PLANT_Olivo_DESC', image: 'olivo.jpg', categoryKey: 'CAT_TREES' },
+    { nameKey: 'PLANT_Palmito_NAME', descKey: 'PLANT_Palmito_DESC', image: 'palmito.jpg', categoryKey: 'CAT_SHRUBS' },
+    { nameKey: 'PLANT_Romero_NAME', descKey: 'PLANT_Romero_DESC', image: 'romero.jpg', categoryKey: 'CAT_SHRUBS' },
+    { nameKey: 'PLANT_Santolina_NAME', descKey: 'PLANT_Santolina_DESC', image: 'santolina.JPG', categoryKey: 'CAT_SHRUBS' },
+    { nameKey: 'PLANT_Strelitzia_NAME', descKey: 'PLANT_Strelitzia_DESC', image: 'strelitzia.jpg', categoryKey: 'CAT_FLOWERS' }
   ];
 
   /** Categorías para estructurar el catálogo */
-  readonly categories = ['Arbustos', 'Flores', 'Árboles'];
+  readonly categories = ['CAT_SHRUBS', 'CAT_FLOWERS', 'CAT_TREES'];
 
   /** Obtiene las plantas que pertenecen a una categoría específica */
-  getPlantsByCategory(category: string) {
-    return this.plants.filter(p => p.category === category);
+  getPlantsByCategory(categoryKey: string) {
+    return this.plants.filter(p => p.categoryKey === categoryKey);
   }
 }

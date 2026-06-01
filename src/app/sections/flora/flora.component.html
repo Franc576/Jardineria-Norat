@@ -2,20 +2,20 @@
   <app-scroll-plants [section]="'flora'"></app-scroll-plants>
   
   <div class="flora-header">
-    <h2 class="section-title">Flora disponible</h2>
-    <p class="section-subtitle">Descubre la flora local de Mallorca</p>
+    <h2 class="section-title">{{ 'FLORA.TITLE' | translate }}</h2>
+    <p class="section-subtitle">{{ 'FLORA.SUBTITLE' | translate }}</p>
   </div>
 
   <div class="flora-category-block" *ngFor="let cat of categories">
-    <h3 class="category-title">{{ cat }}</h3>
+    <h3 class="category-title">{{ 'FLORA.' + cat | translate }}</h3>
     <div class="flora-grid">
       <div class="plant-card" *ngFor="let p of getPlantsByCategory(cat)">
         <div class="plant-img-container">
-          <img [src]="'/flora/' + p.image" [alt]="p.name" class="plant-img" loading="lazy" />
+          <img [src]="'/flora/' + p.image" [alt]="'FLORA.' + p.nameKey | translate" class="plant-img" loading="lazy" />
         </div>
         <div class="plant-info">
-          <h4 class="plant-name">{{ p.name }}</h4>
-          <p class="plant-desc">{{ p.description }}</p>
+          <h4 class="plant-name">{{ 'FLORA.' + p.nameKey | translate }}</h4>
+          <p class="plant-desc">{{ 'FLORA.' + p.descKey | translate }}</p>
         </div>
       </div>
     </div>

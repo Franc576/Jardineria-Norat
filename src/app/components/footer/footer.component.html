@@ -2,7 +2,7 @@
 <div class="kit-digital-block">
   <div class="kit-digital-container">
     <h4 class="kit-digital-title">
-      PROGRAMA KIT DIGITAL FINANCIADO POR LOS FONDOS NEXT GENERATION DEL MECANISMO DE RECUPERACIÓN Y RESILIENCIA
+      {{ 'FOOTER.KIT_DIGITAL_TITLE' | translate }}
     </h4>
     
     <div class="kit-digital-logos">
@@ -15,11 +15,11 @@
     
     <div class="kit-digital-legal-grid">
       <div class="legal-left">
-        <p>«financiado por la Unión Europea – NextGenerationEU»</p>
+        <p>{{ 'FOOTER.KIT_LEGAL_LEFT' | translate }}</p>
       </div>
       <div class="legal-right">
         <p>
-          «Financiado por la Unión Europea – NextGenerationEU. Sin embargo, los puntos de vista y las opiniones expresadas son únicamente los del autor o autores y no reflejan necesariamente los de la Unión Europea o la Comisión Europea. Ni la Unión Europea ni la Comisión Europea pueden ser consideradas responsables de las mismas»
+          {{ 'FOOTER.KIT_LEGAL_RIGHT' | translate }}
         </p>
       </div>
     </div>
@@ -31,16 +31,16 @@
   <div class="footer-inner">
     <!-- Left: Copyright -->
     <div class="footer-copy">
-      <p>Copyright &copy; 2026 &ndash; Todos los derechos reservados.</p>
+      <p [innerHTML]="'FOOTER.COPYRIGHT' | translate"></p>
     </div>
 
     <!-- Right: Legal links -->
     <nav class="footer-legal" aria-label="Enlaces legales">
-      <a routerLink="/">Inicio</a>
-      <a [routerLink]="['/legal']">Aviso Legal</a>
-      <a [routerLink]="['/privacidad']">Política de Privacidad</a>
-      <a [routerLink]="['/cookies']">Política de Cookies</a>
-      <a [routerLink]="['/accesibilidad']">Accesibilidad</a>
+      <a routerLink="/">{{ 'FOOTER.LINK_HOME' | translate }}</a>
+      <a [routerLink]="['/legal']">{{ 'FOOTER.LINK_LEGAL' | translate }}</a>
+      <a [routerLink]="['/privacidad']">{{ 'FOOTER.LINK_PRIVACY' | translate }}</a>
+      <a [routerLink]="['/cookies']">{{ 'FOOTER.LINK_COOKIES' | translate }}</a>
+      <a [routerLink]="['/accesibilidad']">{{ 'FOOTER.LINK_ACCESSIBILITY' | translate }}</a>
     </nav>
   </div>
 </footer>
