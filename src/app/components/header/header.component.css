@@ -178,3 +178,118 @@
     width: 100%;
   }
 }
+
+/* ---------- Language Selector ---------- */
+.lang-selector {
+  position: relative;
+  display: inline-block;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.8rem;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  color: #3a3a3a;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.chevron-icon {
+  transition: transform 0.3s ease;
+}
+
+.chevron-icon.open {
+  transform: rotate(180deg);
+}
+
+.lang-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 0.4rem 0;
+  min-width: 70px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1010;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.lang-dropdown.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.lang-dropdown button {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  color: #3a3a3a;
+  font-weight: 500;
+  font-size: 0.88rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.lang-dropdown button:hover {
+  background: var(--color-secondary);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .lang-selector {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .lang-btn {
+    margin: 0 auto;
+    width: fit-content;
+  }
+  
+  .lang-dropdown {
+    position: static;
+    transform: none;
+    opacity: 1;
+    pointer-events: auto;
+    display: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 0.5rem 0;
+  }
+  
+  .lang-dropdown.show {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 0.8rem;
+    transform: none;
+  }
+  
+  .lang-dropdown button {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    padding: 0.35rem 0.75rem;
+  }
+}

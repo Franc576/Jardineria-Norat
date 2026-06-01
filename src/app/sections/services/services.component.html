@@ -1,7 +1,7 @@
 <section id="servicios" class="services-section" style="position: relative;">
   <app-scroll-plants [section]="'services'"></app-scroll-plants>
   <div class="services-container">
-    <h2 class="section-title">Nuestros Servicios</h2>
+    <h2 class="section-title">{{ 'SERVICES.TITLE' | translate }}</h2>
 
     <div class="services-grid">
 
@@ -10,13 +10,13 @@
         <div class="card-img-wrapper">
           <img
             src="Service-Image-1.webp"
-            alt="Diseño de jardines – Jardinería Norat"
+            [alt]="'SERVICES.S1_TITLE' | translate"
             loading="lazy"
           />
         </div>
         <div class="card-body">
-          <h3>Diseño de jardines</h3>
-          <p>Creamos entornos personalizados, estéticos y funcionales adaptados a tu espacio.</p>
+          <h3>{{ 'SERVICES.S1_TITLE' | translate }}</h3>
+          <p>{{ 'SERVICES.S1_DESC' | translate }}</p>
         </div>
       </article>
 
@@ -25,13 +25,13 @@
         <div class="card-img-wrapper">
           <img
             src="Service-Image-2.webp"
-            alt="Mantenimiento de jardines – Jardinería Norat"
+            [alt]="'SERVICES.S2_TITLE' | translate"
             loading="lazy"
           />
         </div>
         <div class="card-body">
-          <h3>Mantenimiento de jardines</h3>
-          <p>Cuidado integral constante y adaptado a las necesidades de cada temporada.</p>
+          <h3>{{ 'SERVICES.S2_TITLE' | translate }}</h3>
+          <p>{{ 'SERVICES.S2_DESC' | translate }}</p>
         </div>
       </article>
 
@@ -40,13 +40,13 @@
         <div class="card-img-wrapper">
           <img
             src="piscina-27398805.webp"
-            alt="Mantenimiento de piscinas – Jardinería Norat"
+            [alt]="'SERVICES.S3_TITLE' | translate"
             loading="lazy"
           />
         </div>
         <div class="card-body">
-          <h3>Mantenimiento de piscinas</h3>
-          <p>Limpieza, control técnico y puesta a punto óptima durante todo el año.</p>
+          <h3>{{ 'SERVICES.S3_TITLE' | translate }}</h3>
+          <p>{{ 'SERVICES.S3_DESC' | translate }}</p>
         </div>
       </article>
 
@@ -55,13 +55,13 @@
         <div class="card-img-wrapper">
           <img
             src="Service-Image-5.webp"
-            alt="Mantenimiento de comunidades – Jardinería Norat"
+            [alt]="'SERVICES.S4_TITLE' | translate"
             loading="lazy"
           />
         </div>
         <div class="card-body">
-          <h3>Mantenimiento de comunidades</h3>
-          <p>Servicios programados para garantizar áreas comunes impecables y seguras.</p>
+          <h3>{{ 'SERVICES.S4_TITLE' | translate }}</h3>
+          <p>{{ 'SERVICES.S4_DESC' | translate }}</p>
         </div>
       </article>
 
@@ -70,13 +70,13 @@
         <div class="card-img-wrapper">
           <img
             src="Service-Image-6.webp"
-            alt="Desbroce de solares – Jardinería Norat"
+            [alt]="'SERVICES.S5_TITLE' | translate"
             loading="lazy"
           />
         </div>
         <div class="card-body">
-          <h3>Desbroce de solares</h3>
-          <p>Limpieza exhaustiva de maleza y vegetación en terrenos y parcelas.</p>
+          <h3>{{ 'SERVICES.S5_TITLE' | translate }}</h3>
+          <p>{{ 'SERVICES.S5_DESC' | translate }}</p>
         </div>
       </article>
 
@@ -85,13 +85,13 @@
         <div class="card-img-wrapper">
           <img
             src="Service-Image-5.webp"
-            alt="Poda y gestión de residuos – Jardinería Norat"
+            [alt]="'SERVICES.S6_TITLE' | translate"
             loading="lazy"
           />
         </div>
         <div class="card-body">
-          <h3>Poda y gestión de residuos</h3>
-          <p>Poda estructural de árboles y arbustos con retirada completa de restos vegetales.</p>
+          <h3>{{ 'SERVICES.S6_TITLE' | translate }}</h3>
+          <p>{{ 'SERVICES.S6_DESC' | translate }}</p>
         </div>
       </article>
 

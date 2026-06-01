@@ -4,11 +4,12 @@ import { RouterLink } from '@angular/router';
 import emailjs from '@emailjs/browser';
 import { environment } from '../../../environments/environment';
 import { ScrollPlantsComponent } from '../../components/scroll-plants/scroll-plants.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule, RouterLink, ScrollPlantsComponent],
+  imports: [FormsModule, RouterLink, ScrollPlantsComponent, TranslateModule],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })

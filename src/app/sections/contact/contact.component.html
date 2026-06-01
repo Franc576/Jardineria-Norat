@@ -5,9 +5,9 @@
       
       <!-- Columna Izquierda: Info de Valor -->
       <div class="contact-info-col">
-        <h2 class="contact-title">Contacta con Nosotros</h2>
+        <h2 class="contact-title">{{ 'CONTACT.INFO_TITLE' | translate }}</h2>
         <p class="contact-description">
-          Primera consulta y presupuesto sin compromiso. Atendemos en Mallorquín, Castellano, Inglés y Francés.
+          {{ 'CONTACT.INFO_DESC' | translate }}
         </p>
 
         <div class="quick-contact-cards">
@@ -32,7 +32,7 @@
               </svg>
             </div>
             <div class="card-details">
-              <span class="card-label">Correo Electrónico</span>
+              <span class="card-label">{{ 'CONTACT.LABEL_EMAIL' | translate }}</span>
               <span class="card-value">noratsalom@gmail.com</span>
             </div>
           </a>
@@ -44,26 +44,26 @@
         <form (ngSubmit)="sendEmail($event, contactForm)" #contactForm="ngForm" class="angular-contact-form">
           <div class="form-row">
             <div class="form-group">
-              <label for="form-name">Nombre</label>
+              <label for="form-name">{{ 'CONTACT.LABEL_NAME' | translate }}</label>
               <input
                 type="text"
                 id="form-name"
                 name="name"
                 [(ngModel)]="formData.name"
-                placeholder="Tu nombre"
+                [placeholder]="'CONTACT.PLACEHOLDER_NAME' | translate"
                 required
                 #nameInput="ngModel"
                 [class.invalid]="nameInput.invalid && nameInput.touched"
               >
             </div>
             <div class="form-group">
-              <label for="form-phone">Teléfono</label>
+              <label for="form-phone">{{ 'CONTACT.LABEL_PHONE' | translate }}</label>
               <input
                 type="tel"
                 id="form-phone"
                 name="phone"
                 [(ngModel)]="formData.phone"
-                placeholder="Ej: 686 665 840"
+                [placeholder]="'CONTACT.PLACEHOLDER_PHONE' | translate"
                 required
                 #phoneInput="ngModel"
                 [class.invalid]="phoneInput.invalid && phoneInput.touched"
@@ -72,13 +72,13 @@
           </div>
 
           <div class="form-group">
-            <label for="form-email">Email</label>
+            <label for="form-email">{{ 'CONTACT.LABEL_EMAIL' | translate }}</label>
             <input
               type="email"
               id="form-email"
               name="email"
               [(ngModel)]="formData.email"
-              placeholder="correo@ejemplo.com"
+              [placeholder]="'CONTACT.PLACEHOLDER_EMAIL' | translate"
               required
               email
               #emailInput="ngModel"
@@ -87,13 +87,13 @@
           </div>
 
           <div class="form-group">
-            <label for="form-message">Mensaje</label>
+            <label for="form-message">{{ 'CONTACT.LABEL_MSG' | translate }}</label>
             <textarea
               id="form-message"
               name="message"
               [(ngModel)]="formData.message"
               rows="5"
-              placeholder="Cuéntanos cómo podemos ayudarte..."
+              [placeholder]="'CONTACT.PLACEHOLDER_MSG' | translate"
               required
               #messageInput="ngModel"
               [class.invalid]="messageInput.invalid && messageInput.touched"
@@ -111,7 +111,7 @@
               >
               <span class="checkmark"></span>
               <span class="checkbox-text">
-                He leído y acepto la <a routerLink="/privacidad" class="privacy-link">Política de Privacidad</a>
+                {{ 'CONTACT.PRIVACY_TEXT' | translate }} <a routerLink="/privacidad" class="privacy-link">{{ 'CONTACT.PRIVACY_LINK' | translate }}</a>
               </span>
             </label>
           </div>
@@ -121,18 +121,18 @@
             class="btn-submit"
             [disabled]="isSending || contactForm.invalid"
           >
-            {{ isSending ? 'Enviando...' : 'Enviar Mensaje' }}
+            {{ isSending ? ('CONTACT.SENDING' | translate) : ('CONTACT.BTN_SEND' | translate) }}
           </button>
 
           <!-- Feedback Messages -->
           @if (emailSentSuccess) {
             <div class="form-feedback success">
-              ¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.
+              {{ 'CONTACT.SUCCESS' | translate }}
             </div>
           }
           @if (emailSentError) {
             <div class="form-feedback error">
-              Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.
+              {{ 'CONTACT.ERROR' | translate }}
             </div>
           }
         </form>

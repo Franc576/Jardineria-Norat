@@ -2,26 +2,36 @@
 
 :root {
   /* Brand Green Palette */
-  --color-primary: #1b4332;       /* Deep Forest Green (Headers, prominent text) */
+  --color-primary: #1b4332;
+  /* Deep Forest Green (Headers, prominent text) */
   --color-primary-rgb: 27, 67, 50;
-  
-  --color-primary-dark: #133c2a;  /* Even deeper forest green for high contrast */
-  
-  --color-secondary: #40916c;     /* Mid Sage Green (Subtitles, hover states, links) */
+
+  --color-primary-dark: #133c2a;
+  /* Even deeper forest green for high contrast */
+
+  --color-secondary: #40916c;
+  /* Mid Sage Green (Subtitles, hover states, links) */
   --color-secondary-rgb: 64, 145, 108;
-  
-  --color-accent: #52b788;        /* Mint/Emerald Green (CTAs, borders, accent highlights) */
+
+  --color-accent: #52b788;
+  /* Mint/Emerald Green (CTAs, borders, accent highlights) */
   --color-accent-rgb: 82, 183, 136;
-  
-  --color-accent-hover: #40916c;  /* Darker accent for active states */
-  
+
+  --color-accent-hover: #40916c;
+  /* Darker accent for active states */
+
   /* Neutral Colors */
-  --color-bg-light: #f8f9fa;      /* Warm light grey for alternative sections */
-  --color-bg-white: #ffffff;      /* Pure white for cards and forms */
-  --color-text-dark: #212529;     /* Main text color */
-  --color-text-muted: #495057;    /* Slate/muted text for descriptions */
-  --color-border-organic: rgba(27, 67, 50, 0.08); /* Organic forest-themed light border */
-  
+  --color-bg-light: #f8f9fa;
+  /* Warm light grey for alternative sections */
+  --color-bg-white: #ffffff;
+  /* Pure white for cards and forms */
+  --color-text-dark: #212529;
+  /* Main text color */
+  --color-text-muted: #495057;
+  /* Slate/muted text for descriptions */
+  --color-border-organic: rgba(27, 67, 50, 0.08);
+  /* Organic forest-themed light border */
+
   /* Shadows */
   --shadow-organic-sm: 0 4px 15px rgba(27, 67, 50, 0.04);
   --shadow-organic-md: 0 8px 24px rgba(27, 67, 50, 0.06);
@@ -34,7 +44,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
 
