@@ -23,7 +23,8 @@ export class ContactComponent {
     phone: '',
     email: '',
     message: '',
-    privacyAccepted: false
+    privacyAccepted: false,
+    botAddress: ''
   };
 
   sendEmail(event: Event, contactForm: NgForm) {
@@ -32,6 +33,31 @@ export class ContactComponent {
     this.isSending = true;
     this.emailSentSuccess = false;
     this.emailSentError = false;
+
+    // Honeypot: Si el campo oculto botAddress tiene contenido, es un bot
+    if (this.formData.botAddress) {
+      console.warn('Bot detectado mediante Honeypot. Abortando envío real.');
+      
+      // Simulamos un comportamiento de éxito para engañar al bot sin enviar correos ni gastar cuota de EmailJS
+      setTimeout(() => {
+        this.isSending = false;
+        this.emailSentSuccess = true;
+        
+        contactForm.resetForm({
+          privacyAccepted: false
+        });
+        
+        this.formData = {
+          name: '',
+          phone: '',
+          email: '',
+          message: '',
+          privacyAccepted: false,
+          botAddress: ''
+        };
+      }, 1000);
+      return;
+    }
 
     const formElement = event.target as HTMLFormElement;
 
@@ -61,7 +87,8 @@ export class ContactComponent {
         phone: '',
         email: '',
         message: '',
-        privacyAccepted: false
+        privacyAccepted: false,
+        botAddress: ''
       };
     })
     .catch((error) => {
