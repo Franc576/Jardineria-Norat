@@ -10,7 +10,10 @@
     "TITLE": "Jardinería Norat",
     "SUBTITLE": "Conception et entretien de jardins",
     "DESCRIPTION": "Nous sommes spécialistes de la conception et de l'entretien de jardins, piscines et terrains à Majorque. Nous offrons des soins professionnels et un service de confiance absolue pour les clients privés et les copropriétés.",
-    "CTA": "Demander un devis gratuit"
+    "CTA": "Demander un devis gratuit",
+    "TAGLINE": "Concevez et aidez votre jardin",
+    "CTA_CONTACT": "Contactez-nous",
+    "CTA_BUDGET": "Demandez votre devis"
   },
   "ABOUT": {
     "TITLE": "À propos de nous",

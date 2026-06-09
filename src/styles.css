@@ -21,8 +21,9 @@
   /* Darker accent for active states */
 
   /* Neutral Colors */
-  --color-bg-light: #f8f9fa;
-  /* Warm light grey for alternative sections */
+  --color-bg-light: #cbe3d3;
+  --color-bg-light-rgb: 203, 227, 211;
+  /* Warm light grey/pastel green for alternative sections */
   --color-bg-white: #ffffff;
   /* Pure white for cards and forms */
   --color-text-dark: #212529;
@@ -51,7 +52,7 @@ body {
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #fcfcfc;
+  background-color: var(--color-bg-light);
   color: var(--color-text-dark);
   display: flex;
   flex-direction: column;

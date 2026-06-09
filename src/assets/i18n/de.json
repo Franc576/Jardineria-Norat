@@ -10,7 +10,10 @@
     "TITLE": "Jardinería Norat",
     "SUBTITLE": "Gartengestaltung und Pflege",
     "DESCRIPTION": "Wir sind Spezialisten für die Gestaltung und Pflege von Gärten, Pools und Grundstücken auf Mallorca. Wir bieten professionelle Pflege und absolut vertrauenswürdigen Service für Privatkunden und Gemeinden.",
-    "CTA": "Kostenloses Angebot anfordern"
+    "CTA": "Kostenloses Angebot anfordern",
+    "TAGLINE": "Gestalten und unterstützen Sie Ihren Garten",
+    "CTA_CONTACT": "Kontaktieren Sie uns",
+    "CTA_BUDGET": "Fordern Sie Ihr Angebot an"
   },
   "ABOUT": {
     "TITLE": "Über uns",
