@@ -1,6 +1,6 @@
 .flora {
   padding: 6rem 5%;
-  background: linear-gradient(180deg, #f7f9f8 0%, #ffffff 100%);
+  background: var(--color-bg-light);
   overflow: hidden;
 }
 

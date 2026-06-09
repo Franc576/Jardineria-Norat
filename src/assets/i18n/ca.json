@@ -10,7 +10,10 @@
     "TITLE": "Jardineria Norat",
     "SUBTITLE": "Disseny i cura de jardins",
     "DESCRIPTION": "Som especialistes en el disseny i manteniment de jardins, piscines i solars a Mallorca. Oferim una cura professional i un tracte de total confiança per a clients privats i comunitats.",
-    "CTA": "Demanar Pressupost Gratuït"
+    "CTA": "Demanar Pressupost Gratuït",
+    "TAGLINE": "Dissenya i ajuda al teu jardí",
+    "CTA_CONTACT": "Contacta amb nosaltres",
+    "CTA_BUDGET": "Sol·licita el teu pressupost"
   },
   "ABOUT": {
     "TITLE": "Nosaltres",

@@ -1,14 +1,33 @@
-<section id="inicio" class="hero-section">
-  <div class="hero-content">
-    <span class="hero-subtitle hero-animate-in">{{ 'HERO.TITLE' | translate }}</span>
-    <h1 class="hero-title hero-animate-in">{{ 'HERO.SUBTITLE' | translate }}</h1>
-    <p class="hero-description hero-animate-in">
-      {{ 'HERO.DESCRIPTION' | translate }}
-    </p>
-    <a href="#contacto" class="btn-cta hero-animate-in">{{ 'HERO.CTA' | translate }}</a>
+<section id="inicio" class="hero-section" #heroContainer>
+  <!-- Background Video Loop -->
+  <video #bgVideo class="hero-bg-video" autoplay muted loop playsinline [autoplay]="true" [muted]="true" [loop]="true">
+    <source src="jardinvideo.mp4" type="video/mp4" />
+  </video>
+  <div class="hero-video-overlay"></div>
+
+  <!-- Three.js Canvas for floating 3D objects and particles -->
+  <div class="hero-canvas-container">
+    <canvas #rendererCanvas class="hero-canvas"></canvas>
   </div>
 
-  <div class="hero-3d-wrapper">
-    <canvas #rendererCanvas class="hero-canvas"></canvas>
+  <!-- Central Floating Assembly -->
+  <div class="hero-panel-wrapper">
+    <!-- Stucco / Linen Textured Central Panel -->
+    <div class="hero-panel" #heroPanel>
+      <div class="hero-panel-content">
+        <span class="hero-panel-label">{{ 'HERO.TITLE' | translate }}</span>
+        <h1 class="hero-panel-tagline">{{ 'HERO.TAGLINE' | translate }}</h1>
+        <div class="hero-panel-ctas">
+          <a href="#contacto" class="hero-btn hero-btn-contact">
+            {{ 'HERO.CTA_CONTACT' | translate }}
+          </a>
+          <a href="#contacto" class="hero-btn hero-btn-budget">
+            {{ 'HERO.CTA_BUDGET' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </section>

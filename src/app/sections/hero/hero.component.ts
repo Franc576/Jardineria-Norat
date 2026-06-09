@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   NgZone,
@@ -7,49 +8,10 @@ import {
   ViewChild,
 } from '@angular/core';
 import * as THREE from 'three';
+import { TranslateModule } from '@ngx-translate/core';
 
-/* ─── Custom Shaders ─── */
+/* ─── Particles Shaders ─── */
 
-const PLANT_VERTEX = `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-const PLANT_FRAGMENT = `
-  uniform sampler2D uMap;
-  uniform float uOpacity;
-  varying vec2 vUv;
-
-  void main() {
-    vec4 color = texture2D(uMap, vUv);
-    
-    // Chroma Key distance from light grey #dcdcdc
-    vec3 keyColor = vec3(0.8627, 0.8627, 0.8627); // #dcdcdc
-    float dist = distance(color.rgb, keyColor);
-    
-    // Radial protective mask to prevent clipping light pot colors in the center
-    vec2 center = vec2(0.5, 0.5);
-    float distToCenter = distance(vUv, center);
-    
-    // Soft thresholds: increase tolerance toward the edges, protect the center
-    float baseTolerance = 0.17;
-    float tolerance = baseTolerance + smoothstep(0.18, 0.55, distToCenter) * 0.28;
-    float feather = 0.09;
-    
-    float alpha = smoothstep(tolerance, tolerance + feather, dist);
-    
-    // Vignette mask to smoothly hide the absolute boundaries of the 16:9 plane
-    float vignette = smoothstep(0.48, 0.32, abs(vUv.x - 0.5)) * 
-                     smoothstep(0.48, 0.32, abs(vUv.y - 0.5));
-    
-    gl_FragColor = vec4(color.rgb, color.a * alpha * vignette * uOpacity);
-  }
-`;
-
-// Soft, glowing circular micro-particle shader for gold pollen
 const PARTICLE_VERTEX = `
   attribute float aSize;
   attribute float aAlpha;
@@ -90,7 +52,17 @@ type ParticleLayer = {
   sway: number;
 };
 
-import { TranslateModule } from '@ngx-translate/core';
+type FloatingObject = {
+  mesh: THREE.Mesh;
+  initialX: number;
+  initialY: number;
+  z: number;
+  speed: number;
+  phase: number;
+  amplitude: number;
+  rotSpeed: { x: number; y: number; z: number };
+  parallaxFactor: number;
+};
 
 @Component({
   selector: 'app-hero',
@@ -99,41 +71,34 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css',
 })
-export class HeroComponent implements OnInit, OnDestroy {
+export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('rendererCanvas', { static: true })
   private canvasRef!: ElementRef<HTMLCanvasElement>;
 
-  private static readonly TOTAL_FRAMES = 52;
-  private static readonly ANIM_FPS = 12;
-  private static readonly FRAME_RATIO = 16 / 9;
+  @ViewChild('heroPanel', { static: true })
+  private heroPanelRef!: ElementRef<HTMLElement>;
+
+  @ViewChild('bgVideo', { static: false })
+  private bgVideoRef!: ElementRef<HTMLVideoElement>;
+
   private static readonly FRUSTUM = 5;
-  private static readonly SEQUENCE_DIR =
-    'kling_20260528_VIDEO_Image1_Ima_4689_0 (1)_000';
-  private static readonly SEQUENCE_STEM =
-    'kling_20260528_VIDEO_Image1_Ima_4689_0 (1)';
 
   private renderer!: THREE.WebGLRenderer;
   private scene!: THREE.Scene;
   private camera!: THREE.OrthographicCamera;
 
-  private plantLayer = new THREE.Group();
   private atmosphereLayer = new THREE.Group();
   private foregroundLayer = new THREE.Group();
 
-  private textures: THREE.Texture[] = [];
-  private generatedTextures: THREE.Texture[] = [];
   private particleLayers: ParticleLayer[] = [];
-
-  private plantPlane?: THREE.Mesh<THREE.PlaneGeometry, THREE.ShaderMaterial>;
-  private glowMesh?: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
-  private shadowMesh?: THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>;
+  private floatingObjects: FloatingObject[] = [];
 
   private rafId = 0;
   private clock = new THREE.Clock();
-  private frameIndex = 0;
-  private frameAcc = 0;
   private mouse = { x: 0, y: 0 };
   private mobile = false;
+
+  private currentTilt = { x: 0, y: 0, px: 0, py: 0 };
 
   private handleMouseMove = this.onMouseMove.bind(this);
   private handleResize = this.onResize.bind(this);
@@ -149,13 +114,27 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.bootstrap();
   }
 
+  ngAfterViewInit(): void {
+    if (this.bgVideoRef) {
+      const video = this.bgVideoRef.nativeElement;
+      video.muted = true;
+      video.loop = true;
+      
+      // Bulletproof loop event listener fallback
+      video.addEventListener('ended', () => {
+        video.currentTime = 0;
+        video.play().catch(err => console.warn('Video loop play failed:', err));
+      });
+
+      // Explicitly trigger initial play
+      video.play().catch(err => console.warn('Video play trigger failed:', err));
+    }
+  }
+
   ngOnDestroy(): void {
     cancelAnimationFrame(this.rafId);
     window.removeEventListener('mousemove', this.handleMouseMove);
     window.removeEventListener('resize', this.handleResize);
-
-    for (const texture of this.textures) texture.dispose();
-    for (const texture of this.generatedTextures) texture.dispose();
 
     this.disposeObject(this.scene);
     this.renderer?.dispose();
@@ -169,22 +148,18 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.initRenderer();
     this.initCamera();
     this.initSceneLayers();
+    this.buildShowcase();
+    
+    this.canvasRef.nativeElement.style.opacity = '1';
 
-    this.loadAllFrames()
-      .then(() => {
-        this.buildShowcase();
-        this.canvasRef.nativeElement.style.opacity = '1';
-
-        this.zone.runOutsideAngular(() => {
-          if (!this.mobile) {
-            window.addEventListener('mousemove', this.handleMouseMove);
-          }
-          window.addEventListener('resize', this.handleResize);
-          this.clock.start();
-          this.tick();
-        });
-      })
-      .catch((err) => console.warn('[Hero] Frame load error:', err));
+    this.zone.runOutsideAngular(() => {
+      if (!this.mobile) {
+        window.addEventListener('mousemove', this.handleMouseMove);
+      }
+      window.addEventListener('resize', this.handleResize);
+      this.clock.start();
+      this.tick();
+    });
   }
 
   private initRenderer(): void {
@@ -222,136 +197,84 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   private initSceneLayers(): void {
     this.atmosphereLayer.renderOrder = 1;
-    this.plantLayer.renderOrder = 2;
-    this.foregroundLayer.renderOrder = 3;
+    this.foregroundLayer.renderOrder = 2;
 
     this.scene.add(this.atmosphereLayer);
-    this.scene.add(this.plantLayer);
     this.scene.add(this.foregroundLayer);
   }
 
-  private loadAllFrames(): Promise<void> {
-    const loader = new THREE.TextureLoader();
-
-    const jobs = Array.from(
-      { length: HeroComponent.TOTAL_FRAMES },
-      (_, i) => {
-        const idx = String(i).padStart(3, '0');
-        const url = encodeURI(
-          `${HeroComponent.SEQUENCE_DIR}/${HeroComponent.SEQUENCE_STEM}_${idx}.webp`
-        );
-
-        return new Promise<THREE.Texture>((resolve, reject) =>
-          loader.load(
-            url,
-            (texture) => {
-              texture.colorSpace = THREE.SRGBColorSpace;
-              texture.minFilter = THREE.LinearFilter;
-              texture.magFilter = THREE.LinearFilter;
-              texture.generateMipmaps = false;
-              resolve(texture);
-            },
-            undefined,
-            reject
-          )
-        );
-      }
-    );
-
-    return Promise.all(jobs).then((textures) => {
-      this.textures = textures;
-    });
-  }
-
   /* ══════════════════════════════════════════════════════════
-     Showcase Builder (Chroma Key & Particle pollen)
+     Showcase Builder
      ══════════════════════════════════════════════════════════ */
 
   private buildShowcase(): void {
-    this.buildPlantPlane();
-    this.buildLightWash();
-    this.buildGroundingShadow();
-    this.buildParticleLayers();
+    // this.buildParticleLayers();
+    this.buildFloatingObjects();
   }
 
-  private buildPlantPlane(): void {
-    const { pw, ph } = this.planeSize();
-    const geometry = new THREE.PlaneGeometry(pw, ph);
-    
-    // ShaderMaterial for dinamyc Chroma Keying transparency and Vignette removal
-    const material = new THREE.ShaderMaterial({
-      vertexShader: PLANT_VERTEX,
-      fragmentShader: PLANT_FRAGMENT,
-      uniforms: {
-        uMap: { value: this.textures[0] },
-        uOpacity: { value: 0 },
-      },
+  private buildFloatingObjects(): void {
+    // 3D Geometry for river stones (Dodecahedron) and wooden blocks (Box)
+    const stoneGeom = new THREE.DodecahedronGeometry(0.18, 1);
+    const woodGeom = new THREE.BoxGeometry(0.24, 0.14, 0.11);
+
+    // Warm, earthy and organic colors to match the palette
+    const stoneMat = new THREE.MeshBasicMaterial({
+      color: 0xa8a6a0,
       transparent: true,
-      depthTest: false,
-      depthWrite: false,
+      opacity: 0.9,
     });
 
-    this.plantPlane = new THREE.Mesh(geometry, material);
-    this.plantPlane.renderOrder = 2;
-    this.plantLayer.add(this.plantPlane);
-  }
-
-  private buildLightWash(): void {
-    const texture = this.createRadialTexture(
-      'rgba(255, 245, 212, 0.45)', // Warm golden glow
-      'rgba(255, 245, 212, 0)'
-    );
-    const { vw, vh } = this.viewSize();
-    const material = new THREE.MeshBasicMaterial({
-      map: texture,
+    const woodMat = new THREE.MeshBasicMaterial({
+      color: 0x8a765d,
       transparent: true,
-      opacity: 0.45,
-      depthTest: false,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      opacity: 0.85,
     });
 
-    this.glowMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(vw * 0.95, vh * 1.2),
-      material
-    );
-    this.glowMesh.position.set(-vw * 0.22, vh * 0.18, 1.2);
-    this.glowMesh.renderOrder = 4;
-    this.foregroundLayer.add(this.glowMesh);
+    // Positions framing the central panel (x: left/right sides, y: various levels)
+    const configs = [
+      { geom: stoneGeom, mat: stoneMat, x: -2.3, y: 1.2, z: 2.0, parallax: 0.2 },
+      { geom: woodGeom, mat: woodMat, x: -2.6, y: -1.3, z: 2.2, parallax: 0.35 },
+      { geom: stoneGeom, mat: stoneMat, x: 2.4, y: 0.9, z: 1.8, parallax: 0.18 },
+      { geom: woodGeom, mat: woodMat, x: 2.1, y: -1.1, z: 2.3, parallax: 0.4 },
+      { geom: stoneGeom, mat: stoneMat, x: -2.1, y: 0.2, z: 1.9, parallax: 0.15 },
+      { geom: woodGeom, mat: woodMat, x: 2.6, y: -1.8, z: 2.1, parallax: 0.25 },
+    ];
+
+    for (let i = 0; i < configs.length; i++) {
+      const c = configs[i];
+      const mesh = new THREE.Mesh(c.geom, c.mat);
+      mesh.position.set(c.x, c.y, c.z);
+      
+      mesh.rotation.set(
+        Math.random() * Math.PI,
+        Math.random() * Math.PI,
+        Math.random() * Math.PI
+      );
+
+      this.foregroundLayer.add(mesh);
+
+      this.floatingObjects.push({
+        mesh,
+        initialX: c.x,
+        initialY: c.y,
+        z: c.z,
+        speed: 0.35 + Math.random() * 0.4,
+        phase: Math.random() * Math.PI * 2,
+        amplitude: 0.08 + Math.random() * 0.08,
+        rotSpeed: {
+          x: 0.08 + Math.random() * 0.2,
+          y: 0.08 + Math.random() * 0.2,
+          z: 0.08 + Math.random() * 0.2,
+        },
+        parallaxFactor: c.parallax,
+      });
+    }
   }
-
-  private buildGroundingShadow(): void {
-    // Sutil elliptical shadow under the pot to ground it cleanly
-    const texture = this.createRadialTexture(
-      'rgba(52, 34, 18, 0.28)',
-      'rgba(52, 34, 18, 0)'
-    );
-    const material = new THREE.MeshBasicMaterial({
-      map: texture,
-      transparent: true,
-      opacity: 0,
-      depthTest: false,
-      depthWrite: false,
-    });
-
-    this.shadowMesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(2.4, 0.58),
-      material
-    );
-    this.shadowMesh.position.set(0, -1.82, 1.25);
-    this.shadowMesh.renderOrder = 5;
-    this.foregroundLayer.add(this.shadowMesh);
-  }
-
-  /* ══════════════════════════════════════════════════════════
-     Mini Golden Pollen Particles
-     ══════════════════════════════════════════════════════════ */
 
   private buildParticleLayers(): void {
     const countFar = this.mobile ? 20 : 65;
     const countNear = this.mobile ? 6 : 18;
 
-    // Finer, smaller and more subtle golden pollen particles
     const far = this.createParticleLayer({
       count: countFar,
       sizeMin: 0.005,
@@ -467,31 +390,34 @@ export class HeroComponent implements OnInit, OnDestroy {
 
     const dt = Math.min(this.clock.getDelta(), 0.05);
     const t = this.clock.getElapsedTime();
-    const intro = this.easeOutCubic(Math.min(t / 1.35, 1));
 
-    this.animateFrames(dt);
+    this.animateFloatingObjects(t, dt);
     this.animateParticles(t, dt);
-    this.animateIntro(intro);
-    this.applyParallax(t);
+    this.updatePanelTilt();
 
     this.renderer.render(this.scene, this.camera);
   }
 
-  private animateFrames(dt: number): void {
-    if (!this.plantPlane || this.textures.length === 0) return;
+  private animateFloatingObjects(t: number, dt: number): void {
+    const mx = this.mobile ? 0 : this.mouse.x;
+    const my = this.mobile ? 0 : this.mouse.y;
 
-    this.frameAcc += dt;
-    const interval = 1 / HeroComponent.ANIM_FPS;
+    for (const obj of this.floatingObjects) {
+      // Gentle sine-wave vertical float
+      const floatY = Math.sin(t * obj.speed + obj.phase) * obj.amplitude;
+      
+      // Auto rotation over time
+      obj.mesh.rotation.x += obj.rotSpeed.x * dt;
+      obj.mesh.rotation.y += obj.rotSpeed.y * dt;
+      obj.mesh.rotation.z += obj.rotSpeed.z * dt;
 
-    while (this.frameAcc >= interval) {
-      this.frameAcc -= interval;
-      this.frameIndex =
-        (this.frameIndex + 1) % HeroComponent.TOTAL_FRAMES;
-    }
+      // Mouse parallax position targets
+      const targetX = obj.initialX + mx * obj.parallaxFactor * 1.5;
+      const targetY = obj.initialY - my * obj.parallaxFactor * 1.5 + floatY;
 
-    const nextTexture = this.textures[this.frameIndex];
-    if (this.plantPlane.material.uniforms['uMap'].value !== nextTexture) {
-      this.plantPlane.material.uniforms['uMap'].value = nextTexture;
+      // Easing / Lerping to targets
+      obj.mesh.position.x += (targetX - obj.mesh.position.x) * 0.05;
+      obj.mesh.position.y += (targetY - obj.mesh.position.y) * 0.05;
     }
   }
 
@@ -525,60 +451,33 @@ export class HeroComponent implements OnInit, OnDestroy {
     }
   }
 
-  private animateIntro(progress: number): void {
-    if (this.plantPlane) {
-      this.plantPlane.material.uniforms['uOpacity'].value = progress;
-      const scale = 0.985 + progress * 0.015;
-      this.plantLayer.scale.setScalar(scale);
-      this.plantLayer.position.y = (1 - progress) * -0.08;
-    }
+  private updatePanelTilt(): void {
+    if (!this.heroPanelRef || this.mobile) return;
 
-    if (this.shadowMesh) {
-      this.shadowMesh.material.opacity = 0.48 * progress;
-    }
+    const mx = this.mouse.x; // range [-1, 1]
+    const my = this.mouse.y; // range [-1, 1]
+
+    // Max tilt angles: 9 degrees
+    const targetTiltX = -my * 8;
+    const targetTiltY = mx * 8;
+    
+    // Max parallax shift: 12px
+    const targetPx = mx * 12;
+    const targetPy = -my * 12;
+
+    // Smooth lerp
+    this.currentTilt.x += (targetTiltX - this.currentTilt.x) * 0.08;
+    this.currentTilt.y += (targetTiltY - this.currentTilt.y) * 0.08;
+    this.currentTilt.px += (targetPx - this.currentTilt.px) * 0.08;
+    this.currentTilt.py += (targetPy - this.currentTilt.py) * 0.08;
+
+    const el = this.heroPanelRef.nativeElement;
+    el.style.transform = `rotateX(${this.currentTilt.x}deg) rotateY(${this.currentTilt.y}deg) translateX(${this.currentTilt.px}px) translateY(${this.currentTilt.py}px)`;
   }
 
-  private applyParallax(t: number): void {
-    const mx = this.mobile ? 0 : this.mouse.x;
-    const my = this.mobile ? 0 : this.mouse.y;
-
-    this.lerpGroupTransform(this.plantLayer, {
-      x: mx * 0.08,
-      y: -my * 0.055,
-      rx: my * 0.012,
-      ry: mx * 0.018,
-      speed: 0.035,
-    });
-
-    this.lerpGroupTransform(this.atmosphereLayer, {
-      x: mx * 0.035 + Math.sin(t * 0.16) * 0.012,
-      y: -my * 0.02,
-      rx: 0,
-      ry: 0,
-      speed: 0.025,
-    });
-
-    this.lerpGroupTransform(this.foregroundLayer, {
-      x: -mx * 0.12,
-      y: my * 0.055,
-      rx: -my * 0.006,
-      ry: -mx * 0.012,
-      speed: 0.04,
-    });
-
-    this.camera.position.x += (mx * 0.035 - this.camera.position.x) * 0.03;
-    this.camera.position.y += (-my * 0.025 - this.camera.position.y) * 0.03;
-  }
-
-  private lerpGroupTransform(
-    group: THREE.Group,
-    target: { x: number; y: number; rx: number; ry: number; speed: number }
-  ): void {
-    group.position.x += (target.x - group.position.x) * target.speed;
-    group.position.y += (target.y - group.position.y) * target.speed;
-    group.rotation.x += (target.rx - group.rotation.x) * target.speed;
-    group.rotation.y += (target.ry - group.rotation.y) * target.speed;
-  }
+  /* ══════════════════════════════════════════════════════════
+     Events & Sizing Helpers
+     ══════════════════════════════════════════════════════════ */
 
   private onMouseMove(event: MouseEvent): void {
     this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -598,7 +497,6 @@ export class HeroComponent implements OnInit, OnDestroy {
     this.camera.updateProjectionMatrix();
 
     this.renderer.setSize(w, h);
-    this.resizeShowcase();
 
     const wasMobile = this.mobile;
     this.mobile = window.innerWidth < 992;
@@ -606,49 +504,12 @@ export class HeroComponent implements OnInit, OnDestroy {
     if (this.mobile && !wasMobile) {
       window.removeEventListener('mousemove', this.handleMouseMove);
       this.mouse = { x: 0, y: 0 };
+      if (this.heroPanelRef) {
+        this.heroPanelRef.nativeElement.style.transform = 'none';
+      }
     } else if (!this.mobile && wasMobile) {
       window.addEventListener('mousemove', this.handleMouseMove);
     }
-  }
-
-  private resizeShowcase(): void {
-    if (this.plantPlane) {
-      const { pw, ph } = this.planeSize();
-      this.plantPlane.geometry.dispose();
-      this.plantPlane.geometry = new THREE.PlaneGeometry(pw, ph);
-    }
-
-    if (this.glowMesh) {
-      const { vw, vh } = this.viewSize();
-      this.glowMesh.geometry.dispose();
-      this.glowMesh.geometry = new THREE.PlaneGeometry(vw * 0.95, vh * 1.2);
-      this.glowMesh.position.set(-vw * 0.22, vh * 0.18, 1.2);
-    }
-  }
-
-  private planeSize(): { pw: number; ph: number } {
-    const { w, h } = this.parentSize();
-    const viewAspect = w / h;
-    const frameAspect = HeroComponent.FRAME_RATIO;
-    const frustum = HeroComponent.FRUSTUM;
-    const pad = 1.08;
-
-    if (viewAspect >= frameAspect) {
-      const pw = frustum * viewAspect * pad;
-      return { pw, ph: pw / frameAspect };
-    }
-
-    const ph = frustum * pad;
-    return { pw: ph * frameAspect, ph };
-  }
-
-  private viewSize(): { vw: number; vh: number } {
-    const { w, h } = this.parentSize();
-    const aspect = w / h;
-    return {
-      vw: HeroComponent.FRUSTUM * aspect,
-      vh: HeroComponent.FRUSTUM,
-    };
   }
 
   private parentSize(): { w: number; h: number } {
@@ -659,42 +520,6 @@ export class HeroComponent implements OnInit, OnDestroy {
       w: parent?.clientWidth ?? el.clientWidth,
       h: parent?.clientHeight ?? el.clientHeight,
     };
-  }
-
-  private createRadialTexture(inner: string, outer: string): THREE.Texture {
-    const size = 512;
-    const canvas = document.createElement('canvas');
-    canvas.width = size;
-    canvas.height = size;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) {
-      throw new Error('Canvas 2D context unavailable');
-    }
-
-    const gradient = ctx.createRadialGradient(
-      size * 0.5,
-      size * 0.5,
-      0,
-      size * 0.5,
-      size * 0.5,
-      size * 0.5
-    );
-    gradient.addColorStop(0, inner);
-    gradient.addColorStop(0.52, inner.replace('0.55', '0.18'));
-    gradient.addColorStop(1, outer);
-
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, size, size);
-
-    const texture = new THREE.CanvasTexture(canvas);
-    texture.colorSpace = THREE.SRGBColorSpace;
-    this.generatedTextures.push(texture);
-    return texture;
-  }
-
-  private easeOutCubic(value: number): number {
-    return 1 - Math.pow(1 - value, 3);
   }
 
   private disposeObject(object: THREE.Object3D): void {

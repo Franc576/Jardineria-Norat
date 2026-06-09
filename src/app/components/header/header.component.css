@@ -10,7 +10,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0.8rem 5%;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(var(--color-bg-light-rgb), 0.92);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
@@ -155,7 +155,7 @@
     justify-content: center;
     gap: 2.4rem;
     padding: 2rem;
-    background: rgba(255, 255, 255, 0.97);
+    background: rgba(var(--color-bg-light-rgb), 0.97);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     box-shadow: -4px 0 30px rgba(0, 0, 0, 0.1);
@@ -218,7 +218,7 @@
   top: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%) translateY(-10px);
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(var(--color-bg-light-rgb), 0.98);
   backdrop-filter: blur(8px);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 8px;
