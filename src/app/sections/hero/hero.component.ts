@@ -209,7 +209,7 @@ export class HeroComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private buildShowcase(): void {
     // this.buildParticleLayers();
-    this.buildFloatingObjects();
+    // this.buildFloatingObjects();
   }
 
   private buildFloatingObjects(): void {
