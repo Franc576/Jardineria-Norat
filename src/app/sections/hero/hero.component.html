@@ -5,14 +5,16 @@
   </video>
   <div class="hero-video-overlay"></div>
 
-  <!-- Three.js Canvas for floating 3D objects and particles -->
-  <div class="hero-canvas-container">
-    <canvas #rendererCanvas class="hero-canvas"></canvas>
+  <!-- Falling Flower Petals -->
+  <div class="petals-layer" aria-hidden="true">
+    <span class="petal petal-1"></span>
+    <span class="petal petal-2"></span>
+    <span class="petal petal-3"></span>
+    <span class="petal petal-4"></span>
   </div>
 
   <!-- Central Floating Assembly -->
   <div class="hero-panel-wrapper">
-    <!-- Stucco / Linen Textured Central Panel -->
     <div class="hero-panel" #heroPanel>
       <div class="hero-panel-content">
         <span class="hero-panel-label">{{ 'HERO.TITLE' | translate }}</span>
@@ -27,7 +29,5 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </section>
