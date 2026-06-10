@@ -2,10 +2,16 @@
    HEADER – Sticky glassmorphism bar + hamburger (mobile)
    ====================================================== */
 
-.header {
+:host {
+  display: block;
   position: sticky;
   top: 0;
   z-index: 1000;
+  pointer-events: none; /* Let clicks pass through when header is hidden */
+}
+
+.header {
+  pointer-events: auto; /* Re-enable clicks for the actual header */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,7 +20,13 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  will-change: transform;
+}
+
+.header.nav-hidden {
+  transform: translateY(-100%);
+  box-shadow: none;
 }
 
 /* ---------- Logo ---------- */

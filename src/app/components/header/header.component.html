@@ -1,4 +1,4 @@
-<header class="header" id="header">
+<header class="header" id="header" [class.nav-hidden]="!isNavbarVisible">
   <a routerLink="/" fragment="inicio" class="logo-link" (click)="closeMenu()">
     <img
       src="NORAT-LOGO.png"

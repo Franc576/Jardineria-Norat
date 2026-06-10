@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -13,8 +13,24 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class HeaderComponent {
   menuOpen = false;
   langMenuOpen = false;
+  isNavbarVisible = true;
+  lastScrollTop = 0;
 
   constructor(private translate: TranslateService) {}
+
+  @HostListener('window:scroll')
+  onScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Hide when scrolling down, show when scrolling up
+    if (currentScroll > this.lastScrollTop && currentScroll > 80) {
+      this.isNavbarVisible = false;
+    } else {
+      this.isNavbarVisible = true;
+    }
+    
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }
 
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
