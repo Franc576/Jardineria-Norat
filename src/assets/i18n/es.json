@@ -34,7 +34,15 @@
     "S5_TITLE": "Desbroce de solares",
     "S5_DESC": "Limpieza exhaustiva de maleza y vegetación en terrenos y parcelas.",
     "S6_TITLE": "Poda y gestión de residuos",
-    "S6_DESC": "Poda estructural de árboles y arbustos con retirada completa de restos vegetales."
+    "S6_DESC": "Poda estructural de árboles y arbustos con retirada completa de restos vegetales.",
+    "BADGE_MAIN": "Servicio Principal",
+    "OTHER_SERVICES_TITLE": "Otros Servicios Especializados",
+    "COMMUNITY_CTA": "Solicitar Presupuesto para Comunidades",
+    "COMMUNITY_BULLET_1": "Cuidado integral de jardines y zonas verdes comunes.",
+    "COMMUNITY_BULLET_2": "Limpieza y mantenimiento técnico de piscinas comunitarias.",
+    "COMMUNITY_BULLET_3": "Control periódico de sistemas de riego automático.",
+    "COMMUNITY_BULLET_4": "Poda preventiva y gestión responsable de residuos.",
+    "COMMUNITY_BULLET_5": "Tratamientos fitosanitarios y abonado estacional."
   },
   "FLORA": {
     "TITLE": "Flora disponible",

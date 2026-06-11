@@ -34,7 +34,15 @@
     "S5_TITLE": "Desbrossament de solars",
     "S5_DESC": "Neteja exhaustiva de malesa i vegetació en terrenys i parcel·les.",
     "S6_TITLE": "Poda i gestió de residus",
-    "S6_DESC": "Poda estructural d'arbres i arbusts amb retirada completa de restes vegetals."
+    "S6_DESC": "Poda estructural d'arbres i arbusts amb retirada completa de restes vegetals.",
+    "BADGE_MAIN": "Servei Principal",
+    "OTHER_SERVICES_TITLE": "Altres Serveis Especialitzats",
+    "COMMUNITY_CTA": "Sol·licitar Pressupost per a Comunitats",
+    "COMMUNITY_BULLET_1": "Cura integral de jardins i zones verdes comunes.",
+    "COMMUNITY_BULLET_2": "Neteja i manteniment tècnic de piscines comunitàries.",
+    "COMMUNITY_BULLET_3": "Control periòdic de sistemes de reg automàtic.",
+    "COMMUNITY_BULLET_4": "Poda preventiva i gestió responsable de residus.",
+    "COMMUNITY_BULLET_5": "Tractaments fitosanitaris i abonament estacional."
   },
   "FLORA": {
     "TITLE": "Flora disponible",

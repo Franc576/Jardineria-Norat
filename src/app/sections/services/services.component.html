@@ -3,6 +3,71 @@
   <div class="services-container">
     <h2 class="section-title">{{ 'SERVICES.TITLE' | translate }}</h2>
 
+    <!-- Servicio Principal Destacado: Mantenimiento de comunidades -->
+    <div class="main-service-card">
+      <div class="main-service-img-wrapper">
+        <img
+          src="Service-Image-5.webp"
+          [alt]="'SERVICES.S4_TITLE' | translate"
+          loading="lazy"
+        />
+      </div>
+      <div class="main-service-body">
+        <div class="main-service-badge-container">
+          <span class="main-service-badge">{{ 'SERVICES.BADGE_MAIN' | translate }}</span>
+        </div>
+        <h3>{{ 'SERVICES.S4_TITLE' | translate }}</h3>
+        <p class="main-service-desc">{{ 'SERVICES.S4_DESC' | translate }}</p>
+        
+        <ul class="main-service-bullets">
+          <li>
+            <svg class="bullet-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+            </svg>
+            <span>{{ 'SERVICES.COMMUNITY_BULLET_1' | translate }}</span>
+          </li>
+          <li>
+            <svg class="bullet-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+            </svg>
+            <span>{{ 'SERVICES.COMMUNITY_BULLET_2' | translate }}</span>
+          </li>
+          <li>
+            <svg class="bullet-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+            </svg>
+            <span>{{ 'SERVICES.COMMUNITY_BULLET_3' | translate }}</span>
+          </li>
+          <li>
+            <svg class="bullet-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+            </svg>
+            <span>{{ 'SERVICES.COMMUNITY_BULLET_4' | translate }}</span>
+          </li>
+          <li>
+            <svg class="bullet-check-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+            </svg>
+            <span>{{ 'SERVICES.COMMUNITY_BULLET_5' | translate }}</span>
+          </li>
+        </ul>
+
+        <div class="main-service-cta-wrapper">
+          <a routerLink="/" fragment="contacto" class="btn-community-cta">
+            {{ 'SERVICES.COMMUNITY_CTA' | translate }}
+            <svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+              <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21 12l-8.15-8.15-1.42 1.42L16.86 11H5v2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Separador y Título de Otros Servicios -->
+    <div class="other-services-divider">
+      <h3 class="other-services-title">{{ 'SERVICES.OTHER_SERVICES_TITLE' | translate }}</h3>
+    </div>
+
     <div class="services-grid">
 
       <!-- 1. Diseño de jardines -->
@@ -50,22 +115,7 @@
         </div>
       </article>
 
-      <!-- 4. Mantenimiento de comunidades -->
-      <article class="service-card">
-        <div class="card-img-wrapper">
-          <img
-            src="Service-Image-5.webp"
-            [alt]="'SERVICES.S4_TITLE' | translate"
-            loading="lazy"
-          />
-        </div>
-        <div class="card-body">
-          <h3>{{ 'SERVICES.S4_TITLE' | translate }}</h3>
-          <p>{{ 'SERVICES.S4_DESC' | translate }}</p>
-        </div>
-      </article>
-
-      <!-- 5. Desbroce de solares -->
+      <!-- 4. Desbroce de solares -->
       <article class="service-card">
         <div class="card-img-wrapper">
           <img
@@ -80,7 +130,7 @@
         </div>
       </article>
 
-      <!-- 6. Poda y gestión de residuos -->
+      <!-- 5. Poda y gestión de residuos -->
       <article class="service-card">
         <div class="card-img-wrapper">
           <img

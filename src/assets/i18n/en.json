@@ -34,7 +34,15 @@
     "S5_TITLE": "Land Clearing",
     "S5_DESC": "Thorough cleaning of weeds and vegetation on plots and land.",
     "S6_TITLE": "Pruning & Waste Management",
-    "S6_DESC": "Structural pruning of trees and shrubs with complete removal of green waste."
+    "S6_DESC": "Structural pruning of trees and shrubs with complete removal of green waste.",
+    "BADGE_MAIN": "Main Service",
+    "OTHER_SERVICES_TITLE": "Other Specialized Services",
+    "COMMUNITY_CTA": "Request Quote for Communities",
+    "COMMUNITY_BULLET_1": "Comprehensive care of gardens and common green areas.",
+    "COMMUNITY_BULLET_2": "Cleaning and technical maintenance of community pools.",
+    "COMMUNITY_BULLET_3": "Periodic control of automatic irrigation systems.",
+    "COMMUNITY_BULLET_4": "Preventive pruning and responsible waste management.",
+    "COMMUNITY_BULLET_5": "Phytosanitary treatments and seasonal fertilization."
   },
   "FLORA": {
     "TITLE": "Available Flora",
