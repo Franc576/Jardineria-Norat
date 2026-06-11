@@ -34,7 +34,15 @@
     "S5_TITLE": "Débroussaillage de terrains",
     "S5_DESC": "Nettoyage complet des mauvaises herbes et de la végétation sur les terrains et parcelles.",
     "S6_TITLE": "Élagage et gestion des déchets",
-    "S6_DESC": "Élagage structurel des arbres et arbustes avec évacuation complète des déchets végétaux."
+    "S6_DESC": "Élagage structurel des arbres et arbustes avec évacuation complète des déchets végétaux.",
+    "BADGE_MAIN": "Service Principal",
+    "OTHER_SERVICES_TITLE": "Autres Services Spécialisés",
+    "COMMUNITY_CTA": "Demander un Devis pour Copropriétés",
+    "COMMUNITY_BULLET_1": "Soin complet des jardins et des espaces verts communs.",
+    "COMMUNITY_BULLET_2": "Nettoyage et entretien technique des piscines collectives.",
+    "COMMUNITY_BULLET_3": "Contrôle périodique des systèmes d'arrosage automatique.",
+    "COMMUNITY_BULLET_4": "Élagage préventif et gestion responsable des déchets.",
+    "COMMUNITY_BULLET_5": "Traitements phytosanitaires et fertilisation saisonnière."
   },
   "FLORA": {
     "TITLE": "Flore",

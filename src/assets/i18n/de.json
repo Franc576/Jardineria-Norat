@@ -34,7 +34,15 @@
     "S5_TITLE": "Grundstücksentkrautung",
     "S5_DESC": "Gründliche Reinigung von Unkraut und Vegetation auf Grundstücken und Parzellen.",
     "S6_TITLE": "Baumschnitt & Entsorgung",
-    "S6_DESC": "Struktureller Schnitt von Bäumen und Sträuchern mit vollständiger Entsorgung von Pflanzenresten."
+    "S6_DESC": "Struktureller Schnitt von Bäumen und Sträuchern mit vollständiger Entsorgung von Pflanzenresten.",
+    "BADGE_MAIN": "Hauptdienstleistung",
+    "OTHER_SERVICES_TITLE": "Weitere spezialisierte Dienstleistungen",
+    "COMMUNITY_CTA": "Angebot für Wohnanlagen anfordern",
+    "COMMUNITY_BULLET_1": "Umfassende Pflege von Gärten und gemeinsamen Grünflächen.",
+    "COMMUNITY_BULLET_2": "Reinigung und technische Pflege von Gemeinschaftspools.",
+    "COMMUNITY_BULLET_3": "Regelmäßige Kontrolle automatischer Bewässerungssysteme.",
+    "COMMUNITY_BULLET_4": "Vorbeugender Baumschnitt und verantwortungsvolle Entsorgung.",
+    "COMMUNITY_BULLET_5": "Pflanzenschutzbehandlungen und saisonale Düngung."
   },
   "FLORA": {
     "TITLE": "Flora",
