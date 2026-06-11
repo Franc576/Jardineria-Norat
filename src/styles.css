@@ -1,6 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-
 :root {
+  /* Tipografía */
+  --font-title: 'Montserrat', 'Century Gothic', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
   /* Brand Green Palette */
   --color-primary: #1b4332;
   /* Deep Forest Green (Headers, prominent text) */
@@ -51,12 +53,17 @@ body {
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--color-bg-light);
   color: var(--color-text-dark);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-title);
+  font-weight: 700;
 }
 
 .legal-page-container {
