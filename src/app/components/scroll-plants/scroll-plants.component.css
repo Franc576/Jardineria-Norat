@@ -6,447 +6,105 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 12; /* Render in front of full-width mobile containers */
+  z-index: 12;
+  overflow: hidden; /* Evita scrollbars si los pétalos caen más allá */
 }
 
-.scroll-plants-wrapper {
+.falling-petals-container {
   position: relative;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
-/* ==========================================
-   Positional Layouts & Depth of Field (DoF)
-   ========================================== */
-
-.botanical-plant {
+.petal-container {
   position: absolute;
-  width: clamp(100px, 11vw, 140px);
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  z-index: 1;
-  will-change: transform, opacity, filter;
-}
-
-/* Heights mapping to SVG viewBox aspect ratios */
-.section-about .botanical-plant { height: 520px; }
-.section-services .botanical-plant,
-.section-flora .botanical-plant { height: 560px; }
-.section-contact .botanical-plant { height: 490px; }
-
-/* Left plants (Near camera: slightly blurry, soft depth of field) */
-.plant-left {
-  left: 0;
-  filter: blur(1.5px);
-  opacity: 0.85;
-  /* Progressive enhancement fallback */
-  transform: translateY(-50%) scale(1) rotate(-4deg);
-}
-
-/* Right plants (Intermediate plane: nitidas y enfocadas) */
-.plant-right {
-  right: 0;
-  filter: blur(0px);
-  opacity: 0.90;
-  /* Progressive enhancement fallback */
-  transform: translateY(-50%) scale(1) rotate(2deg);
-}
-
-/* ==========================================
-   Vector Graphics & Colors Palette
-   ========================================== */
-
-.botanical-svg {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.stem {
-  fill: none;
-  stroke: #5a6b47; /* Slate Olive */
-  stroke-width: 2.2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.leaf {
-  fill: #6e8359; /* Sage Green */
-  fill-opacity: 0.82;
-  stroke: #4d5d3c;
-  stroke-width: 1.2;
+  top: -100px; /* Inicia arriba fuera de la pantalla */
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
   will-change: transform;
 }
 
-/* A. Jazmín Amarillo */
-.fl-center-yellow {
-  fill: #ffeb99;
-  stroke: #d9ab26;
-  stroke-width: 0.8;
-}
-.petal-yellow {
-  fill: #ffd45b;
-  fill-opacity: 0.95;
-  stroke: #cc9c1d;
-  stroke-width: 0.8;
-}
-
-/* B. Brote Naranja (Azahar / Naranjo) */
-.fl-center-orange {
-  fill: #ffe3d1;
-  stroke: #e07f43;
-  stroke-width: 0.8;
-}
-.petal-orange {
-  fill: #ffa87d;
-  fill-opacity: 0.95;
-  stroke: #d66428;
-  stroke-width: 0.8;
-}
-
-/* C. Lantana Púrpura */
-.fl-center-purple {
-  fill: #f5ebff;
-  stroke: #943bc7;
-  stroke-width: 0.8;
-}
-.petal-purple {
-  fill: #b366ff;
-  fill-opacity: 0.9;
-  stroke: #862ed9;
-  stroke-width: 0.7;
-}
-.petal-purple-center {
-  fill: #cc99ff;
-  fill-opacity: 0.95;
-  stroke: #9f4ee6;
-  stroke-width: 0.7;
-}
-
-/* D. Lavanda Azul */
-.fl-center-blue {
-  fill: #e8eeff;
-  stroke: #4a75eb;
-  stroke-width: 0.8;
-}
-.petal-blue {
-  fill: #85a3ff;
-  fill-opacity: 0.95;
-  stroke: #4269d6;
-  stroke-width: 0.8;
-}
-
-/* E. Buganvilla Rosa */
-.fl-center {
-  fill: #fcd980;
-  stroke: #c89c3c;
-  stroke-width: 0.8;
-}
-.petal {
-  fill: #c65e8a;
-  fill-opacity: 0.9;
-  stroke: #9d3a63;
-  stroke-width: 0.8;
-}
-
-/* ==========================================
-   Transform Origins precisely mapped on Stems
-   ========================================== */
-
-/* 1. About section origins */
-.section-about-left .leaf-1 { transform-origin: 28px 430px; }
-.section-about-left .leaf-2 { transform-origin: 44px 370px; }
-.section-about-left .leaf-3 { transform-origin: 46px 290px; }
-.section-about-left .leaf-4 { transform-origin: 30px 220px; }
-.section-about-left .leaf-5 { transform-origin: 40px 150px; }
-.section-about-left .leaf-6 { transform-origin: 50px 80px;  }
-
-.section-about-right .leaf-1 { transform-origin: 132px 430px; }
-.section-about-right .leaf-2 { transform-origin: 116px 370px; }
-.section-about-right .leaf-3 { transform-origin: 114px 290px; }
-.section-about-right .leaf-4 { transform-origin: 130px 220px; }
-.section-about-right .leaf-5 { transform-origin: 120px 150px; }
-.section-about-right .leaf-6 { transform-origin: 110px 80px;  }
-
-/* 2. Services section origins */
-.section-services-left .leaf-1 { transform-origin: 32px 470px; }
-.section-services-left .leaf-2 { transform-origin: 64px 400px; }
-.section-services-left .leaf-3 { transform-origin: 85px 330px;  }
-.section-services-left .leaf-4 { transform-origin: 77px 250px; }
-.section-services-left .leaf-5 { transform-origin: 91px 170px;  }
-.section-services-left .leaf-6 { transform-origin: 94px 100px;  }
-
-.section-services-right .leaf-1 { transform-origin: 148px 470px; }
-.section-services-right .leaf-2 { transform-origin: 116px 400px; }
-.section-services-right .leaf-3 { transform-origin: 95px 330px;  }
-.section-services-right .leaf-4 { transform-origin: 103px 250px; }
-.section-services-right .leaf-5 { transform-origin: 89px 170px;  }
-.section-services-right .leaf-6 { transform-origin: 86px 100px;  }
-
-/* Flora section origins */
-.section-flora-left .leaf-1 { transform-origin: 32px 470px; }
-.section-flora-left .leaf-2 { transform-origin: 64px 400px; }
-.section-flora-left .leaf-3 { transform-origin: 85px 330px;  }
-.section-flora-left .leaf-4 { transform-origin: 77px 250px; }
-.section-flora-left .leaf-5 { transform-origin: 91px 170px;  }
-.section-flora-left .leaf-6 { transform-origin: 94px 100px;  }
-
-.section-flora-right .leaf-1 { transform-origin: 148px 470px; }
-.section-flora-right .leaf-2 { transform-origin: 116px 400px; }
-.section-flora-right .leaf-3 { transform-origin: 95px 330px;  }
-.section-flora-right .leaf-4 { transform-origin: 103px 250px; }
-.section-flora-right .leaf-5 { transform-origin: 89px 170px;  }
-.section-flora-right .leaf-6 { transform-origin: 86px 100px;  }
-
-/* 3. Contact section origins */
-.section-contact-left .leaf-1 { transform-origin: 22px 400px; }
-.section-contact-left .leaf-2 { transform-origin: 38px 340px; }
-.section-contact-left .leaf-3 { transform-origin: 36px 270px; }
-.section-contact-left .leaf-4 { transform-origin: 26px 200px; }
-.section-contact-left .leaf-5 { transform-origin: 34px 130px; }
-.section-contact-left .leaf-6 { transform-origin: 44px 70px;  }
-
-.section-contact-right .leaf-1 { transform-origin: 128px 400px; }
-.section-contact-right .leaf-2 { transform-origin: 112px 340px; }
-.section-contact-right .leaf-3 { transform-origin: 114px 270px; }
-.section-contact-right .leaf-4 { transform-origin: 124px 200px; }
-.section-contact-right .leaf-5 { transform-origin: 116px 130px; }
-.section-contact-right .leaf-6 { transform-origin: 106px 70px;  }
-
-
-/* ==========================================
-   Standard Mecing Wind & Popping Animations (Work Everywhere!)
-   ========================================== */
-
-/* Leaf mecing continuous sway simulated wind */
-.plant-left .leaf {
-  animation: leaf-sway-left 5.2s ease-in-out infinite alternate;
-}
-.plant-right .leaf {
-  animation: leaf-sway-right 5.2s ease-in-out infinite alternate;
-}
-
-/* Individual leaf mecing phase delays for rich wind-ripple ripple */
-.leaf-1 { animation-delay: 0s; }
-.leaf-2 { animation-delay: -0.8s; }
-.leaf-3 { animation-delay: -1.6s; }
-.leaf-4 { animation-delay: -2.4s; }
-.leaf-5 { animation-delay: -3.2s; }
-.leaf-6 { animation-delay: -4.0s; }
-
-/* Large flowers continuous pulse & gentle breathing mecing */
-.flower {
-  transform-box: fill-box;
-  transform-origin: center;
+.petal-sway {
+  animation-name: sway;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
   will-change: transform;
-  animation: flower-gentle-sway 7.5s ease-in-out infinite alternate;
-}
-.fl-1 { animation-delay: -1.5s; }
-.fl-2 { animation-delay: -3.8s; }
-
-/* Mini flowers magical elastic mecing popping & pulsing */
-.fl-mini {
-  transform-box: fill-box;
-  transform-origin: center;
-  will-change: transform;
-  animation: mini-flower-pop-infinite 4.8s ease-in-out infinite alternate;
-}
-/* Out-of-phase delays for mini buds */
-.fl-mini:nth-of-type(1) { animation-delay: -0.6s; }
-.fl-mini:nth-of-type(2) { animation-delay: -2.2s; }
-.fl-mini:nth-of-type(3) { animation-delay: -3.8s; }
-
-
-/* ==========================================
-   KEYFRAMES: Wind sway, Breathing and Popping
-   ========================================== */
-
-@keyframes leaf-sway-left {
-  0% { transform: rotate(-7deg); }
-  100% { transform: rotate(7deg); }
 }
 
-@keyframes leaf-sway-right {
-  0% { transform: rotate(7deg); }
-  100% { transform: rotate(-7deg); }
+.petal-shape {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: spin 8s linear infinite;
+  transform-style: preserve-3d;
 }
 
-@keyframes flower-gentle-sway {
+/* Efectos visuales por tipo de pétalo */
+.petal-poppy svg {
+  width: 35px;
+  height: 35px;
+  filter: drop-shadow(0 4px 6px rgba(230, 57, 70, 0.4));
+}
+
+.petal-jasmine svg {
+  width: 20px;
+  height: 40px;
+  filter: drop-shadow(0 4px 6px rgba(255, 255, 255, 0.6));
+}
+
+.petal-lavender svg {
+  width: 15px;
+  height: 28px;
+  filter: drop-shadow(0 2px 4px rgba(155, 93, 229, 0.4));
+}
+
+/* Animaciones */
+@keyframes fall {
   0% {
-    transform: scale(0.86) rotate(-6deg);
-    opacity: 0.82;
+    transform: translateY(-100px) rotate(0deg);
   }
   100% {
-    transform: scale(1.06) rotate(6deg);
-    opacity: 0.96;
+    /* Cae suficientemente bajo para cubrir cualquier sección (hasta 2500px) */
+    transform: translateY(2500px) rotate(360deg);
   }
 }
 
-@keyframes mini-flower-pop-infinite {
+@keyframes sway {
   0% {
-    transform: scale(0.55) rotate(-15deg);
-    opacity: 0.68;
-  }
-  50% {
-    transform: scale(1.15) rotate(8deg);
-    opacity: 0.95;
+    transform: translateX(-50px);
   }
   100% {
-    transform: scale(0.95) rotate(-8deg);
-    opacity: 0.88;
+    transform: translateX(50px);
   }
 }
 
-/* Symmetrical Parallax bloom keyframes for parents view timeline */
-@keyframes bloom-left {
+@keyframes spin {
   0% {
-    transform: translate3d(-35px, 60px, 0) scale(0.1) rotate(-16deg);
-    opacity: 0;
-  }
-  25% {
-    transform: translate3d(-12px, 20px, 0) scale(0.65) rotate(-10deg);
-    opacity: 0.45;
-  }
-  50% {
-    transform: translate3d(0, -50%, 0) scale(1) rotate(-4deg);
-    opacity: 0.85;
-  }
-  75% {
-    transform: translate3d(-12px, -40px, 0) scale(0.65) rotate(-8deg);
-    opacity: 0.45;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
   100% {
-    transform: translate3d(-35px, -80px, 0) scale(0.1) rotate(-14deg);
-    opacity: 0;
+    transform: rotateX(360deg) rotateY(180deg) rotateZ(180deg);
   }
 }
 
-@keyframes bloom-right {
-  0% {
-    transform: translate3d(35px, 60px, 0) scale(0.1) rotate(16deg);
-    opacity: 0;
-  }
-  25% {
-    transform: translate3d(12px, 20px, 0) scale(0.65) rotate(10deg);
-    opacity: 0.45;
-  }
-  50% {
-    transform: translate3d(0, -50%, 0) scale(1) rotate(2deg);
-    opacity: 0.90;
-  }
-  75% {
-    transform: translate3d(12px, -40px, 0) scale(0.65) rotate(8deg);
-    opacity: 0.45;
-  }
-  100% {
-    transform: translate3d(35px, -80px, 0) scale(0.1) rotate(14deg);
-    opacity: 0;
-  }
-}
-
-
-/* ==========================================
-   CSS View Progress Timelines Binding (Parents Only)
-   ========================================== */
-
-@supports (animation-timeline: view()) {
-  .plant-left {
-    /* Anchored strictly to the vertical view of its respective section */
-    animation: bloom-left linear both;
-    animation-timeline: view(y);
-    animation-range: entry 5% exit 95%;
-  }
-
-  .plant-right {
-    animation: bloom-right linear both;
-    animation-timeline: view(y);
-    animation-range: entry 5% exit 95%;
-  }
-}
-
-/* ==========================================
-   Responsive Adaptation for Tablets & Mobile
-   ========================================== */
-
-@media (max-width: 1200px) {
-  .botanical-plant {
-    width: clamp(75px, 9vw, 95px);
-  }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  :host {
-    z-index: 0;
-    overflow: hidden;
-  }
-
-  .scroll-plants-wrapper {
-    overflow: hidden;
-  }
-
-  /* Small subtle decorations hugging the edges */
-  .botanical-plant {
-    width: 48px !important;
-    height: auto !important;
-    opacity: 0.18 !important;
-    filter: blur(0.5px) !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-  }
-
-  /* Section-specific fixed heights to keep SVG proportions clean */
-  .section-about .botanical-plant { height: 180px !important; }
-  .section-services .botanical-plant { height: 180px !important; }
-  .section-flora .botanical-plant { height: 180px !important; }
-  .section-contact .botanical-plant { height: 170px !important; }
-
-  .plant-left {
-    left: -6px !important;
-    transform: translateY(-50%) rotate(-3deg) !important;
-  }
-
-  .plant-right {
-    right: -6px !important;
-    transform: translateY(-50%) rotate(3deg) !important;
-  }
-
-  /* Kill scroll-driven animation on mobile — use simple gentle sway instead */
-  .plant-left,
-  .plant-right {
-    animation: none !important;
-    animation-timeline: unset !important;
-  }
-
-  .plant-left .leaf,
-  .plant-right .leaf {
-    animation: leaf-sway-left 6s ease-in-out infinite alternate;
-  }
-
-  .plant-right .leaf {
-    animation-name: leaf-sway-right;
-  }
-
-  /* Simplify flower animations on mobile */
-  .flower {
-    animation-duration: 10s !important;
-  }
-  .fl-mini {
-    animation-duration: 7s !important;
+  .petal-shape {
+    transform: scale(0.65) !important; /* Más sutil en móvil */
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .botanical-plant, .leaf, .flower, .fl-mini {
+  .petal-container, .petal-sway, .petal-shape {
     animation: none !important;
-    transform: none !important;
   }
-  .plant-left {
-    transform: translateY(-50%) scale(1) rotate(-4deg) !important;
-    opacity: 0.8 !important;
-  }
-  .plant-right {
-    transform: translateY(-50%) scale(1) rotate(2deg) !important;
-    opacity: 0.8 !important;
+  /* Si prefieren movimiento reducido, simplemente ocultamos los pétalos */
+  :host {
+    display: none !important;
   }
 }
